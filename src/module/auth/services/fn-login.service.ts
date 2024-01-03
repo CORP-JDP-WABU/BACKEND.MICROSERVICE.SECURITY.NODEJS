@@ -22,7 +22,9 @@ export class FnLoginService {
     private readonly cryptoService: CryptoService,
   ) {}
 
-  async execute(requestLoginDto: authDto.RequestLoginDto): Promise<dto.ResponseGenericDto> {
+  async execute(
+    requestLoginDto: authDto.RequestLoginDto,
+  ): Promise<dto.ResponseGenericDto> {
     this.logger.debug(
       `::execute::parameters::${JSON.stringify(requestLoginDto)}`,
     );
@@ -52,7 +54,9 @@ export class FnLoginService {
       password,
     });
     if (!userByEmailPassword)
-      throw new exception.InvalidCredentialsCustomException(`findUserByEmailPassword`);
+      throw new exception.InvalidCredentialsCustomException(
+        `findUserByEmailPassword`,
+      );
 
     this.logger.debug(
       `::execute::findUserByEmailPassword::${userByEmailPassword.email}`,

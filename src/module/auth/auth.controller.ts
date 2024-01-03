@@ -9,13 +9,13 @@ import {
 import * as response from 'src/common/dto';
 import * as exception from 'src/exception';
 import * as services from './services';
-import * as request from './dto'
+import * as request from './dto';
 
 @Controller('auth/v1.0')
 export class AuthController {
   constructor(
     private readonly fnLoginService: services.FnLoginService,
-    private readonly fnKeysService: services.FnKeysService
+    private readonly fnKeysService: services.FnKeysService,
   ) {}
 
   @UseGuards(ThrottlerGuard)
@@ -58,5 +58,4 @@ export class AuthController {
   ): Promise<response.ResponseGenericDto> {
     return this.fnLoginService.execute(requestLodinDto);
   }
-
 }

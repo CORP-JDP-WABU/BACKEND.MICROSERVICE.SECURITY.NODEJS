@@ -5,9 +5,8 @@ import * as crypto from 'crypto';
 import * as schemas from 'src/common/schemas';
 import * as dto from 'src/common/dto';
 import * as authDto from '../dto';
-import * as exception from 'src/exception'
+import * as exception from 'src/exception';
 import { AuditPropertiesSchema } from 'src/common/schemas/audit-properties.schema';
-
 
 @Injectable()
 export class FnKeysService {

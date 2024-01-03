@@ -19,7 +19,7 @@ import { AuthModule } from './module/auth/auth.module';
       useFactory: (configService: ConfigService) => ({
         ...configService.get('mongodb'),
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -29,7 +29,7 @@ import { AuthModule } from './module/auth/auth.module';
         limit: config.get('http.throttle.limit'),
       }),
     }),
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

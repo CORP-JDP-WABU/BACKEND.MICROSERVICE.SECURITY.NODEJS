@@ -31,9 +31,6 @@ import { KEYS } from 'src/common/const/keys.const';
     CryptoModule,
   ],
   controllers: [AuthController],
-  providers: [
-    services.FnLoginService,
-    services.FnKeysService,
-  ],
+  providers: [services.FnLoginService, services.FnKeysService],
 })
 export class AuthModule {}

@@ -15,9 +15,9 @@ export class RequestLoginDto {
 
   @IsString()
   @ApiProperty()
-  readonly hash: string
+  readonly hash: string;
 
   @IsString()
   @ApiProperty()
-  readonly data: string
+  readonly data: string;
 }
