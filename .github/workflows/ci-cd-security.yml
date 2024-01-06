@@ -49,3 +49,4 @@ jobs:
           docker rmi fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs
           docker pull fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs:latest
           docker run -d -p 4000:4000 --name microservice-security fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs:latest
+          '
