@@ -46,7 +46,7 @@ jobs:
           sudo su
           docker stop microservice-security
           docker rm microservice-security
-          docker rmi fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs
-          docker pull fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs:latest
-          docker run -d -p 4000:4000 --name microservice-security fernandozavaletah/corp-jdp-wabu-backend-microservice-security-nodejs:latest
+          docker rmi ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs
+          docker pull ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
+          docker run -d -p 4000:4000 --name microservice-security ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
           '
