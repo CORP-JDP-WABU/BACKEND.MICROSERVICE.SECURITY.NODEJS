@@ -20,7 +20,7 @@ export class AuthController {
 
   @UseGuards(ThrottlerGuard)
   @Throttle()
-  @Get('/v1.0/keys')
+  @Get('/keys')
   @ApiCreatedResponse({
     description: 'The keys has been successfully created authentication.',
     type: response.ResponseGenericDto,

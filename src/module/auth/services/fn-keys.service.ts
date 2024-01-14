@@ -7,6 +7,7 @@ import * as dto from 'src/common/dto';
 import * as authDto from '../dto';
 import * as exception from 'src/exception';
 import { AuditPropertiesSchema } from 'src/common/schemas/audit-properties.schema';
+import { CryptoService } from 'src/common/crypto/crypto.service';
 
 @Injectable()
 export class FnKeysService {
@@ -15,6 +16,7 @@ export class FnKeysService {
   constructor(
     @InjectModel(schemas.Keys.name)
     private readonly keysModel: mongoose.Model<schemas.KeysDocument>,
+    private readonly cryptoService: CryptoService,
   ) {}
 
   async execute(): Promise<dto.ResponseGenericDto> {
@@ -26,6 +28,9 @@ export class FnKeysService {
       credentialKeyBase64,
       passwordKeyBase64,
     );
+
+    await this.exampleHash(hash.requestHash, hash.keys);
+
     return <dto.ResponseGenericDto>{
       message: 'SUCCESS',
       operation: `::${FnKeysService.name}::execute`,
@@ -90,5 +95,34 @@ export class FnKeysService {
       this.logger.error(error);
       throw new exception.RegisterHashInternalException();
     }
+  }
+
+  private async exampleHash(requestHash: string, keys: any) {
+    const studentExample = {
+      email: "fernando.zavaleta@tismart.com",
+      password: "facil123"
+    };
+
+    const bufferKys = {
+      x1:  Buffer.from(keys.x1, 'base64'),
+      x2:  Buffer.from(keys.x2, 'base64')
+    }
+
+    const encryptEmail = await this.cryptoService.encrypt(studentExample.email, bufferKys.x1);
+    const encryptPassword = await this.cryptoService.encrypt(studentExample.password, bufferKys.x2);
+    const encryptStudentAtribute = {
+      email: encryptEmail,
+      password: encryptPassword
+    };
+    const encryptStudent = await this.cryptoService.encrypt(JSON.stringify(encryptStudentAtribute));
+
+    this.logger.debug(`###### encrypt :: [${encryptStudent}]`);
+  
+    const decryptStudentInString = await this.cryptoService.decrypt(encryptStudent);
+    const decryptStudenToJson = JSON.parse(decryptStudentInString);
+    const decryptStudentEmail = await this.cryptoService.decrypt(decryptStudenToJson.email, bufferKys.x1);
+    const decryptStudentPassword = await this.cryptoService.decrypt(decryptStudenToJson.password, bufferKys.x2);
+
+    this.logger.debug(`###### decrypt :: [${decryptStudentEmail} --- ${decryptStudentPassword}]`);
   }
 }

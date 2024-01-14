@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { HttpCustomException } from './exception/http-custom.exception';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const aplicationNestName = '::microservice-security::';
@@ -29,6 +30,17 @@ async function bootstrap() {
   SwaggerModule.setup(swaggerBasePath, app, document);
 
   app.enableCors();
+
+  /*app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [config.get('rabbitmq.url')],
+      queue: 'nestjs_queue',
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });*/
 
   await app.startAllMicroservices();
   await app.listen(config.get('http.port'), config.get('http.host'));
