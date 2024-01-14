@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <link rel="stylesheet" href="../css/style-1.css" />
+            <title></title>
+            <style type="text/css">
+                center > table {
+                    width: 950px;
+                }
+                center > table > tbody > tr > td:nth-child(1),
+                center > table > tbody > tr > td:nth-child(3) {
+                    width: 15%;
+                }
+                center > table > tbody > tr > td:nth-child(2) {
+                    width: 600px;
+                }
+                center
+                    > table
+                    > tbody
+                    > tr
+                    > td:nth-child(2)
+                    > table
+                    > tbody
+                    > tr
+                    > td
+                    > table {
+                    padding-left: 113px;
+                    padding-right: 104px;
+                    padding: 60px 70px 60px;
+                }
+                @media (max-width: 601px) {
+                    center > table {
+                        width: 100%;
+                    }
+                    center > table > tbody > tr > td:nth-child(1),
+                    center > table > tbody > tr > td:nth-child(3) {
+                        width: 0;
+                    }
+                    center > table > tbody > tr > td:nth-child(2) {
+                        width: 100%;
+                    }
+                    center
+                    > table
+                    > tbody
+                    > tr
+                    > td:nth-child(2)
+                    > table
+                    > tbody
+                    > tr
+                    > td
+                    > table {
+                        padding-left: 15px !important;
+                        padding-right: 15px !important;
+                        padding: 15px;
+                    }
+                }
+            </style>
+        </head>
+        <body style="margin: 0; padding: 30px 0; min-width: 100%!important;">
+        <!-- wrapper -->
+            <center>
+                <table align="center" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <!-- add &nbsp; to ensure it will be rendered -->
+                        <td>&nbsp;</td>
+                        <!-- in the middle cell you set your max-width -->
+                        <!-- notice double declaration for yahoo in html attribute -->
+                        <td align="center" valign="top">
+                        <!-- this table scales up to parent cell -->
+                            <table
+                                align="center"
+                                border="0"
+                                width="100%"
+                                style="width: 100%"
+                                cellspacing="0"
+                                cellpadding="0"
+                            >
+                                <tr>
+                                <!-- content!! -->
+                                    <td align="center" class="table-border" style="font-family:Arial; font-size: 14px; border-radius: 2px; max-height: 565px; max-width: 699px;">
+                                        <table
+                                            class="content-table"
+                                            width="100%"
+                                            height="100px"
+                                            bgcolor="#ffffff"
+                                            style="font-family: sans-serif; color: #040028; line-height: 130%; font-weight: 100; font-size: 16px; border-radius: 10px;"
+                                        >
+                                            <tr>
+                                                <td height="35px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" height="80px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" >
+                                                    <img src="{{ imageBase64 }}" alt="Logo" width="70px" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="50px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="
+                                                        color: #5A6066; 
+                                                        font-weight: 500;
+                                                        font-size: 24px;
+                                                        line-height: 24px;
+                                                        font-weight: 400;"
+                                                >
+                                                    ¡Hola {{ name }}!<br />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="20px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14px; color: #7490AD;" >
+                                                    Por favor ingresa este código para restablecer tu
+                                                    contraseña:
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="50px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center; padding-top: 0; padding-bottom: 0;" >
+                                                    <span
+                                                        style="
+                                                            font-weight: bold; 
+                                                            color: #5A6066;
+                                                            font-size: 18px;
+                                                            letter-spacing: 0.16px;"
+                                                    >
+                                                        Código
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="5px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="text-align: center; padding-top: 0; padding-bottom: 0;"
+                                                >
+                                                    <span
+                                                        style="
+                                                            border: 1.5px solid #7490AD; 
+                                                            font-size: 40px; 
+                                                            font-weight: bold; 
+                                                            color: #1283FF;
+                                                            display: inline-block;
+                                                            margin: auto;
+                                                            line-height: 67px;
+                                                            width: 151px;
+                                                            height: 67px;
+                                                            border-radius: 5px;"
+                                                    >{{ code }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="60px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #7490AD; margin-bottom: 20px; padding-top: 0; padding-bottom: 0;" > Gracias, </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 20px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style=" font-weight: bold; color: #5A6066; font-weight: 600; padding-top: 0; padding-bottom: 0;" > El equipo de Wabu</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 35px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 0; padding-bottom: 0;">
+                                                    <span style="font-size: 13px; display: inline-block;text-align: center;  width: 100%;" >
+                                                        ¿Tienes alguna consulta? Escríbenos a
+                                                        contacto@wabuperu.com
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 20px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 0; padding-bottom: 0;">
+                                                    <span style="color: #5A6066; font-size: 13px; display: inline-block;text-align: center;  width: 100%;" >
+                                                        Síguenos en
+                                                        <a style="color: #5A6066;" href="">Facebook</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table>
+                                            <tr>
+                                                <td height="20px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;" ></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- add &nbsp; to ensure it will be rendered -->
+                        <td>&nbsp;</td>
+                    </tr>
+            </table>
+        </center>
+    </body>
+</html>

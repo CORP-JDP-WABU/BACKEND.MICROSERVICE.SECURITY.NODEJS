@@ -8,12 +8,14 @@ import {
 
 import * as response from 'src/common/dto';
 import * as exception from 'src/exception';
+import * as request from './dto';
+import { FnAccountRecoveryService } from './services';
 
 
 @Controller('account/v1.0')
 export class AccountController {
   constructor(
-
+    private readonly fnAccountRecoveryService : FnAccountRecoveryService
   ) {}
 
   @UseGuards(ThrottlerGuard)
@@ -46,8 +48,8 @@ export class AccountController {
   @ApiInternalServerErrorResponse({
     description: 'The recovery has been failed by created account.',
   })
-  recovery(): Promise<response.ResponseGenericDto> {
-    return null
+  recovery(@Body() requestAccountRecovery: request.ReqAccountRecoveryDto): Promise<response.ResponseGenericDto> {
+    return this.fnAccountRecoveryService.execute(requestAccountRecovery);
   }
 
   @UseGuards(ThrottlerGuard)
