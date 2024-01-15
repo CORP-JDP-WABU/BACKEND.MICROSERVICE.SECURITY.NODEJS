@@ -22,8 +22,7 @@ export class FnLoginService {
     @InjectModel(schemas.Securities.name)
     private readonly securityModel: mongoose.Model<schemas.SecuritiesDocument>,
     private readonly jwtService: JwtService,
-    private readonly cryptoService: CryptoService,
-    //private readonly emmitService: EmittingService
+    private readonly cryptoService: CryptoService, //private readonly emmitService: EmittingService
   ) {}
 
   async execute(
@@ -32,7 +31,10 @@ export class FnLoginService {
     this.logger.debug(
       `::execute::parameters::${JSON.stringify(requestLoginDto)}`,
     );
-    const { email, password } = await this.generateDecryptCredential(requestLoginDto.hash, requestLoginDto.data);
+    const { email, password } = await this.generateDecryptCredential(
+      requestLoginDto.hash,
+      requestLoginDto.data,
+    );
     const findUserByEmailPassword: schemas.StudentsDocument =
       await this.findUserByEmailPassword(email, password);
     const generateTokenForUser = await this.generateTokenForUser(
@@ -43,7 +45,7 @@ export class FnLoginService {
       findUserByEmailPassword._id,
       generateTokenForUser.tokenDecrypt,
     );
-    
+
     //this.emmitService.emitEvenToUniversityKpiIncrementStudentConnected("idUniversity");
 
     return <dto.ResponseGenericDto>{
@@ -59,6 +61,7 @@ export class FnLoginService {
     const userByEmailPassword = await this.studentModel.findOne({
       email,
       password,
+      'auditProperties.status.code': 2,
     });
     if (!userByEmailPassword)
       throw new exception.InvalidCredentialsCustomException(
@@ -72,11 +75,12 @@ export class FnLoginService {
   }
 
   private async findKeysByRequestHash(requestHash: string) {
-    const keys = await this.keysModel.findOne({ requestHash, "auditProperties.recordActive": true }, { keys: 1 });
-    if(!keys) {
-      throw new exception.InvalidHashCustomException(
-        `findKeysByRequestHash`
-      );
+    const keys = await this.keysModel.findOne(
+      { requestHash, 'auditProperties.recordActive': true },
+      { keys: 1 },
+    );
+    if (!keys) {
+      throw new exception.InvalidHashCustomException(`findKeysByRequestHash`);
     }
     return keys;
   }
@@ -96,26 +100,30 @@ export class FnLoginService {
   }
 
   private async generateDecryptCredential(requestHash: string, data: string) {
-
     const findKeysRequest: any = await this.findKeysByRequestHash(requestHash);
 
     const bufferKys = {
-      x1:  Buffer.from(findKeysRequest.keys.x1, 'base64'),
-      x2:  Buffer.from(findKeysRequest.keys.x2, 'base64')
-    }
+      x1: Buffer.from(findKeysRequest.keys.x1, 'base64'),
+      x2: Buffer.from(findKeysRequest.keys.x2, 'base64'),
+    };
 
     const decryptStudentInString = await this.cryptoService.decrypt(data);
     const decryptStudenToJson = JSON.parse(decryptStudentInString);
-    const decryptStudentEmail = await this.cryptoService.decrypt(decryptStudenToJson.email, bufferKys.x1);
-    const decryptStudentPassword = await this.cryptoService.decrypt(decryptStudenToJson.password, bufferKys.x2);
+    const decryptStudentEmail = await this.cryptoService.decrypt(
+      decryptStudenToJson.email,
+      bufferKys.x1,
+    );
+    const decryptStudentPassword = await this.cryptoService.decrypt(
+      decryptStudenToJson.password,
+      bufferKys.x2,
+    );
 
     //this.logger.debug(`###### decrypt :: [${decryptStudentEmail} --- ${decryptStudentPassword}]`);
-    
+
     return {
       email: decryptStudentEmail,
-      password: decryptStudentPassword
+      password: decryptStudentPassword,
     };
-
   }
 
   private async registerSecurityForUser(

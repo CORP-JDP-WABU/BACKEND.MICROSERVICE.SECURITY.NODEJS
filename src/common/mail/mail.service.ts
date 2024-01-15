@@ -9,31 +9,47 @@ import * as aws from 'aws-sdk';
 import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import { join } from 'path';
-import { imageLogo } from '../const/keys.const';
+import { imageLogo } from '../const/generate.const';
 
 @Injectable()
 export class MailService {
-
   private transporter: nodemailer.Transporter;
 
   private fileNameAccountRecovery: string = 'account-recovery';
+  private fileNameAccountRegister: string = 'account-register';
+  private subjectAccountRecovery: string = 'WABU: ACCOUNT RECOVERY PASSWORD';
+  private subjectAccountRegister: string = 'WABU: ACCOUNT REGISTER';
 
   constructor() {
     this.setupTransporter();
   }
 
-  async sendAccountRecovery(emailTo: string) {
+  async sendAccountRecovery(emailTo: string, code: String, fullName: string) {
     const template = this.findTemplateHbs(this.fileNameAccountRecovery);
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate({
-      code: '1234',
-      name: 'Fernando Zavaleta'
+      code,
+      name: fullName,
     });
-
     const options = {
       from: 'tismart.fernando@gmail.com',
       to: 'tismart.fernando@gmail.com',
-      subject: 'WABU: ACCOUNT RECOVERY PASSWORD',
+      subject: this.subjectAccountRecovery,
+      html,
+    };
+    return this.transporter.sendMail(options);
+  }
+
+  async sendAccountRegister(emailTo: string, code: String) {
+    const template = this.findTemplateHbs(this.fileNameAccountRegister);
+    const compiledTemplate = handlebars.compile(template);
+    const html = compiledTemplate({
+      code,
+    });
+    const options = {
+      from: 'tismart.fernando@gmail.com',
+      to: 'tismart.fernando@gmail.com',
+      subject: this.subjectAccountRegister,
       html,
     };
     return this.transporter.sendMail(options);
@@ -55,9 +71,12 @@ export class MailService {
   }
 
   private findTemplateHbs(fileName: string) {
-    const filePath = join(process.cwd(), '/dist/common/mail/templates', `${fileName}.hbs`)
+    const filePath = join(
+      process.cwd(),
+      '/dist/common/mail/templates',
+      `${fileName}.hbs`,
+    );
     const template = fs.readFileSync(filePath, 'utf8');
     return template;
   }
-
 }

@@ -4,6 +4,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import * as response from 'src/common/dto';
@@ -12,6 +13,7 @@ import * as services from './services';
 import * as request from './dto';
 
 @Controller('auth/v1.0')
+@ApiTags('AUTH')
 export class AuthController {
   constructor(
     private readonly fnLoginService: services.FnLoginService,
@@ -49,9 +51,17 @@ export class AuthController {
     description: 'Internal Server Exception.',
     type: exception.GenerateTokenInternalException,
   })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal Server Exception.',
+    type: exception.RegisterSecurityInternalException,
+  })
   @ApiConflictResponse({
     description: 'Conflict Exception',
     type: exception.InvalidCredentialsCustomException,
+  })
+  @ApiConflictResponse({
+    description: 'Conflict Exception',
+    type: exception.InvalidHashCustomException,
   })
   login(
     @Body() requestLodinDto: request.RequestLoginDto,

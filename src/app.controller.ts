@@ -1,8 +1,10 @@
 import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
+import { ApiTags } from '@nestjs/swagger';
 import { Connection } from 'mongoose';
 
 @Controller()
+@ApiTags('SECURITY')
 export class AppController {
   constructor(@InjectConnection() private connection: Connection) {}
 

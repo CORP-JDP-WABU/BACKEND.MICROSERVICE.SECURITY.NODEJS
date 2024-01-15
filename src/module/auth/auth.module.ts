@@ -6,8 +6,7 @@ import { CryptoModule } from 'src/common/crypto/crypto.module';
 import { EmittingModule } from 'src/event/emitting/emitting.module';
 import * as services from './services';
 import * as schemas from 'src/common/schemas';
-import { KEYS } from 'src/common/const/keys.const';
-
+import { KEYS } from 'src/common/const/generate.const';
 
 @Module({
   imports: [

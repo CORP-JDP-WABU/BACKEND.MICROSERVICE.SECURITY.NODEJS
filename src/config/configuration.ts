@@ -6,7 +6,7 @@ export default () => ({
     throttle: {
       ttl: process.env.SERVICE_HTTP_THROTTLE_TTL,
       limit: process.env.SERVICE_HTTP_THROTTLE_LIMIT,
-    }
+    },
   },
   swagger: {
     basePath: process.env.SWAGGER_BASE_PATH,
@@ -18,6 +18,6 @@ export default () => ({
     dbName: process.env.DATABASE_MONGO_NAME,
   },
   rabbitmq: {
-    url: process.env.RABBITMQ_URL
-  }
+    url: process.env.RABBITMQ_URL,
+  },
 });

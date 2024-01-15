@@ -31,7 +31,7 @@ import { AccountModule } from './module/account/account.module';
       }),
     }),
     AuthModule,
-    AccountModule 
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [
