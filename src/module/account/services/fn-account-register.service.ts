@@ -14,6 +14,8 @@ export class FnAccountRegisterService {
   private logger = new Logger(FnAccountRegisterService.name);
 
   constructor(
+    @InjectModel(schemas.Universities.name)
+    private readonly universityModel: mongoose.Model<schemas.UniversitiesDocument>,
     @InjectModel(schemas.Students.name)
     private readonly studentModel: mongoose.Model<schemas.StudentsDocument>,
     @InjectModel(schemas.Keys.name)
@@ -102,14 +104,34 @@ export class FnAccountRegisterService {
       profileUrl,
       idUniversity,
       idCareer,
+      cicleName
     } = requestAccountRegisterUpdateDto;
-    const student = await this.studentModel.findOne({
-      _id: idStudent,
+
+    const studentPromise = this.studentModel.findOne({
+      _id: mongoose.Types.ObjectId(idStudent),
       'auditProperties.status.code': 1,
     });
+    const universityPromise = this.universityModel.findOne({
+      _id: mongoose.Types.ObjectId(idUniversity),
+      "careers._id": mongoose.Types.ObjectId(idCareer),
+      "careers.cicles": { $in: [cicleName] } ,
+    });
+
+    const [student, university] = await Promise.all([studentPromise, universityPromise]);
 
     if (!student) {
       throw new exception.ExistStudentRegisterPendingCustomException();
+    }
+
+    if(!university) {
+      throw new exception.NotExistUniversityRegisterCustomException();
+    }
+
+    const universityCareerAndCicles = university.careers.find(career => career._id == mongoose.Types.ObjectId(idCareer));
+
+    const career = {
+      _id: universityCareerAndCicles._id,
+      name: universityCareerAndCicles.name
     }
 
     await this.studentModel.updateOne(
@@ -121,18 +143,22 @@ export class FnAccountRegisterService {
           information,
           profileUrl,
           university: {
-            idUniversity: '',
-            name: '',
+            _id: university.id,
+            name: university.name,
           },
-          career: {
-            idCareer: '',
-            name: '',
-          },
+          career,
+          cicleName
         },
       },
     );
 
-    return null;
+    return <dto.ResponseGenericDto>{
+      message: 'Processo exitoso',
+      operation: `::${FnAccountRegisterService.name}::execute`,
+      data: <accountDto.ResponseAccountRegisterUpdateDto>{
+        isUpdate: true,
+      },
+    };
   }
 
   private async generateDecryptCredential(requestHash: string, data: string) {

@@ -34,6 +34,11 @@ export class RequestAccountRegisterUpdateDto {
   readonly idCareer: string;
 
   @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  readonly cicleName: string;
+
+  @IsNotEmpty()
   @IsBoolean()
   @ApiProperty()
   readonly isAcceptedTermCoditions: boolean;

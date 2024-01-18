@@ -6,5 +6,6 @@ export * from './req-account-register.dto';
 export * from './res-account-recovery-update.dto';
 export * from './res-account-recovery-verify.dto';
 export * from './res-account-recovery.dto';
+export * from './res-account-register-update.dto';
 export * from './res-account-register-verify.dto';
 export * from './res-account-register.dto';

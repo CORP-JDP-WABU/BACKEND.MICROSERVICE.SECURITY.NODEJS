@@ -7,10 +7,15 @@ import * as schemas from 'src/common/schemas';
 import { KEYS } from 'src/common/const/generate.const';
 import { MailModule } from 'src/common/mail/mail.module';
 import * as services from './services';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
+      {
+        name: schemas.Universities.name,
+        schema: schemas.UniversitiesSchema
+      },
       {
         name: schemas.Students.name,
         schema: schemas.StudentsSchema,
@@ -20,10 +25,14 @@ import * as services from './services';
         schema: schemas.KeysSchema,
       },
     ]),
-    JwtModule.register({
-      global: true,
-      secret: KEYS.jwt_secret,
-      signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        global: true,
+        secret: config.get('jwt.secret'),
+        signOptions: { expiresIn: '60s' },
+      })
     }),
     CryptoModule,
     MailModule,

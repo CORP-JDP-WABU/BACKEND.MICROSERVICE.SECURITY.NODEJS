@@ -73,14 +73,11 @@ export class FnLoginService {
       password,
       //'auditProperties.status.code': 2,
     });
-    if (!userByEmail)
+    if (!userByEmailPassword)
       throw new exception.InvalidCredentialsPasswordCustomException(
         `findUserByEmailPassword`,
       );
 
-    this.logger.debug(
-      `::execute::findUserByEmailPassword::${userByEmailPassword.email}`,
-    );
     return userByEmailPassword;
   }
 
@@ -111,14 +108,16 @@ export class FnLoginService {
 
   private async generateDecryptCredential(requestHash: string, data: string) {
     const findKeysRequest: any = await this.findKeysByRequestHash(requestHash);
-
+    
     const bufferKys = {
       x1: Buffer.from(findKeysRequest.keys.x1, 'base64'),
       x2: Buffer.from(findKeysRequest.keys.x2, 'base64'),
     };
 
     const decryptStudentInString = await this.cryptoService.decrypt(data);
+
     const decryptStudenToJson = JSON.parse(decryptStudentInString);
+
     const decryptStudentEmail = await this.cryptoService.decrypt(
       decryptStudenToJson.email,
       bufferKys.x1,

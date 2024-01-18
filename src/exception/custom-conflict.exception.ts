@@ -43,3 +43,19 @@ export class ExistStudentRegisterPendingCustomException extends ConflictExceptio
     );
   }
 }
+
+export class NotExistStudentRecoveryCustomException extends ConflictException {
+  constructor() {
+    super(
+      `El correo colocado no está registrado`,
+    );
+  }
+}
+
+export class NotExistUniversityRegisterCustomException extends ConflictException {
+  constructor() {
+    super(
+      `Los datos universitarios no existen`,
+    );
+  }
+}

@@ -6,7 +6,7 @@ import { CryptoModule } from 'src/common/crypto/crypto.module';
 import { EmittingModule } from 'src/event/emitting/emitting.module';
 import * as services from './services';
 import * as schemas from 'src/common/schemas';
-import { KEYS } from 'src/common/const/generate.const';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -24,10 +24,14 @@ import { KEYS } from 'src/common/const/generate.const';
         schema: schemas.KeysSchema,
       },
     ]),
-    JwtModule.register({
-      global: true,
-      secret: KEYS.jwt_secret,
-      signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        global: true,
+        secret: config.get('jwt.secret'),
+        signOptions: { expiresIn: '60s' },
+      })
     }),
     CryptoModule,
     //EmittingModule

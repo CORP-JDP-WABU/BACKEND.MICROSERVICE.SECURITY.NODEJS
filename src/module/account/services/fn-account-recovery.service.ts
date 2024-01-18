@@ -31,32 +31,29 @@ export class FnAccountRecoveryService {
       requestAccountRecovery.data,
     );
     const student = await this.studentModel.findOne({ email });
-    this.logger.debug(`::execute::student::[${student.id} - ${student.email}]`);
-    if (student) {
-      const fullName = `${student.firstName} ${student.lastName}`;
-      const generateRecoveryPassword = await this.generateRecoveryPasswordCode(
-        student.id,
-      );
-      const sendEmail = await this.mailService.sendAccountRecovery(
-        email,
-        generateRecoveryPassword,
-        fullName,
-      );
-      return <dto.ResponseGenericDto>{
-        message: 'Processo exitoso',
-        operation: `::${FnAccountRecoveryService.name}::execute`,
-        data: <accountDto.ResponseAccountRecoveryDto>{
-          messageId: sendEmail.messageId,
-        },
-      };
+    
+    if(!student) {
+      throw new exception.NotExistStudentRecoveryCustomException();
     }
+
+    this.logger.debug(`::execute::student::[${student.id} - ${student.email}]`);
+    const fullName = `${student.firstName} ${student.lastName}`;
+    const generateRecoveryPassword = await this.generateRecoveryPasswordCode(
+      student.id,
+    );
+    const sendEmail = await this.mailService.sendAccountRecovery(
+      email,
+      generateRecoveryPassword,
+      fullName,
+    );
     return <dto.ResponseGenericDto>{
-      message: 'Processo fallido',
+      message: 'Processo exitoso',
       operation: `::${FnAccountRecoveryService.name}::execute`,
       data: <accountDto.ResponseAccountRecoveryDto>{
-        messageId: '',
+        messageId: sendEmail.messageId,
       },
-    };
+    }
+    
   }
 
   async executeUpdate(
@@ -68,36 +65,32 @@ export class FnAccountRecoveryService {
       true,
     );
     const student = await this.studentModel.findOne({ email });
+
+    if(!student) {
+      throw new exception.NotExistStudentRecoveryCustomException();
+    }
+
     this.logger.debug(
       `::executeUpdate::student::[${student.id} - ${student.email}]`,
     );
-    if (student) {
-      await this.studentModel.updateOne(
-        { _id: student.id },
-        {
-          $set: {
-            password,
-            'sendCodes.recoveryPassword': '0000',
-          },
+    await this.studentModel.updateOne(
+      { _id: student.id },
+      {
+        $set: {
+          password,
+          'sendCodes.recoveryPassword': '0000'
         },
-      );
-
-      return <dto.ResponseGenericDto>{
-        message: 'Processo exitoso',
-        operation: `::${FnAccountRecoveryService.name}::execute`,
-        data: <accountDto.ResponseAccountRecoveryUpdateDto>{
-          isUpdate: true,
-        },
-      };
-    }
+      },
+    );
 
     return <dto.ResponseGenericDto>{
-      message: 'Processo fallido',
+      message: 'Processo exitoso',
       operation: `::${FnAccountRecoveryService.name}::execute`,
       data: <accountDto.ResponseAccountRecoveryUpdateDto>{
-        isUpdate: false,
+        isUpdate: true,
       },
     };
+
   }
 
   private async findKeysByRequestHash(requestHash: string) {
@@ -147,7 +140,7 @@ export class FnAccountRecoveryService {
   ): Promise<String> {
     let code = '';
 
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < 6; index++) {
       const randomCharacters = RECOVERY.VALUE.charAt(
         Math.floor(Math.random() * RECOVERY.VALUE.length),
       );
