@@ -20,16 +20,6 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Generate .env file
-      run: |
-        echo "DATABASE_MONGO_HOSTNAME=${{ secrets.ENV_DATABASE_MONGO_HOSTNAME }}" >> .env
-        echo "DATABASE_MONGO_USER=${{ secrets.ENV_DATABASE_MONGO_USER }}" >> .env
-        echo "DATABASE_MONGO_PASSWORD=${{ secrets.ENV_DATABASE_MONGO_PASSWORD }}" >> .env
-        echo "DATABASE_MONGO_NAME=${{ secrets.ENV_DATABASE_MONGO_NAME }}" >> .env
-        echo "ACCESSKEY=${{ secrets.EC2_ACCESSKEY }}" >> .env
-        echo "SECRETKEY=${{ secrets.EC2_SECRETKEY }}" >> .env
-        echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-
     - name: Install Dependencies
       run: npm install
 
