@@ -57,7 +57,11 @@ export class AuthController {
   })
   @ApiConflictResponse({
     description: 'Conflict Exception',
-    type: exception.InvalidCredentialsCustomException,
+    type: exception.InvalidCredentialsEmailCustomException,
+  })
+  @ApiConflictResponse({
+    description: 'Conflict Exception',
+    type: exception.InvalidCredentialsPasswordCustomException,
   })
   @ApiConflictResponse({
     description: 'Conflict Exception',
