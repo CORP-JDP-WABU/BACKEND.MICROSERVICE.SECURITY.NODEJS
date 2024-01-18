@@ -1,25 +1,25 @@
 name: ci_cd_security
- 
+
 on:
   push:
     branches: [develop]
     
   pull_request:
     branches: [develop]
-  
+
 jobs:
-  deploy:
+  build_and_push:
     runs-on: ubuntu-latest
- 
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
- 
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '14'
- 
+
     - name: Generate .env file
       run: |
         echo "DATABASE_MONGO_HOSTNAME=${{ secrets.ENV_DATABASE_MONGO_HOSTNAME }}" >> .env
@@ -32,15 +32,28 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
- 
+
     - name: Build Docker Image
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
- 
+
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
- 
+
     - name: Push Docker Image to Docker Hub
       run: docker push ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
+
+  deploy_to_ec2:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14'
 
     - name: Build & Deploy
       env:
