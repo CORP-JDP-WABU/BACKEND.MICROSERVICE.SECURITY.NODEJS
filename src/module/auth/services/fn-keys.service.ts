@@ -99,7 +99,7 @@ export class FnKeysService {
 
   private async exampleHash(requestHash: string, keys: any) {
     const studentExample = {
-      email: 'tismart.fernando@gmail.com',
+      email: 'fernando.zavaleta@tismart.com',
       password: 'facil123',
     };
 

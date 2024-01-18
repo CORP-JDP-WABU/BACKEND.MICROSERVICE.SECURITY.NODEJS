@@ -1,8 +1,14 @@
 import { ConflictException } from '@nestjs/common';
 
-export class InvalidCredentialsCustomException extends ConflictException {
+export class InvalidCredentialsEmailCustomException extends ConflictException {
   constructor(originException: string) {
-    super(`correo y/o contraseña incorrectos [${originException}]`);
+    super(`El correo ingresado no existe en la base de datos`);
+  }
+}
+
+export class InvalidCredentialsPasswordCustomException extends ConflictException {
+  constructor(originException: string) {
+    super(`Parece que esta contraseña no es la correcta`);
   }
 }
 

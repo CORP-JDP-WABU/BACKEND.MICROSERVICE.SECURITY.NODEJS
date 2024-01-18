@@ -94,8 +94,15 @@ export class FnAccountRegisterService {
   async executeUpdate(
     requestAccountRegisterUpdateDto: accountDto.RequestAccountRegisterUpdateDto,
   ) {
-    const { idStudent, firstName, lastName, information, profileUrl, idUniversity, idCareer } =
-      requestAccountRegisterUpdateDto;
+    const {
+      idStudent,
+      firstName,
+      lastName,
+      information,
+      profileUrl,
+      idUniversity,
+      idCareer,
+    } = requestAccountRegisterUpdateDto;
     const student = await this.studentModel.findOne({
       _id: idStudent,
       'auditProperties.status.code': 1,
@@ -115,11 +122,11 @@ export class FnAccountRegisterService {
           profileUrl,
           university: {
             idUniversity: '',
-            name: ''
+            name: '',
           },
           career: {
             idCareer: '',
-            name: ''
+            name: '',
           },
         },
       },

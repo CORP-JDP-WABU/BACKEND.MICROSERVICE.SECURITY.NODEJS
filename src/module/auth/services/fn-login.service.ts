@@ -58,13 +58,23 @@ export class FnLoginService {
   }
 
   private async findUserByEmailPassword(email: string, password: string) {
+    const userByEmail = await this.studentModel.findOne({
+      email,
+      //password,
+      //'auditProperties.status.code': 2,
+    });
+    if (!userByEmail)
+      throw new exception.InvalidCredentialsEmailCustomException(
+        `findUserByEmailPassword`,
+      );
+
     const userByEmailPassword = await this.studentModel.findOne({
       email,
       password,
-      'auditProperties.status.code': 2,
+      //'auditProperties.status.code': 2,
     });
-    if (!userByEmailPassword)
-      throw new exception.InvalidCredentialsCustomException(
+    if (!userByEmail)
+      throw new exception.InvalidCredentialsPasswordCustomException(
         `findUserByEmailPassword`,
       );
 
