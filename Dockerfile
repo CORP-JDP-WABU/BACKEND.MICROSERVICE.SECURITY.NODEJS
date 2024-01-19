@@ -1,26 +1,36 @@
-# Base image
-FROM node:18
+# PRODUCTION DOCKERFILE
+# ---------------------
 
-# Create app directory
-WORKDIR /usr/src/app
+# Stage 1: Builder
+FROM node:18-alpine as builder
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+ENV NODE_ENV build
+
+USER node
+WORKDIR /home/node
+
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Install app dependencies
-RUN npm install
+COPY --chown=node:node . .
 
-# Bundle app source
-COPY . .
+# COPY .env ./
 
-# Copy the .env and .env.development files
-COPY .env ./
+RUN npx prisma generate \
+    && npm run build \
+    && npm prune --omit=dev
 
-# Creates a "dist" folder with the production build
-RUN npm run build
+# Stage 2: Production
+FROM node:18-alpine
 
-# Expose the port on which the app will run
-EXPOSE 4000
+ENV NODE_ENV production
 
-# Start the server using the production build
-CMD ["npm", "run", "start:prod"]
+USER node
+WORKDIR /home/node
+
+COPY --from=builder --chown=node:node /home/node/package*.json ./
+COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
+COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
+COPY --from=builder --chown=node:node /home/node/.env/ ./
+
+CMD ["node", "dist/main.js"]

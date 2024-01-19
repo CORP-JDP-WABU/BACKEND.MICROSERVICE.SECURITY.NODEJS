@@ -18,6 +18,12 @@ export class Students {
   @Prop({})
   lastName: string;
 
+  @Prop({})
+  information: string;
+
+  @Prop({})
+  profileUrl: string;
+
   @Prop(
     raw({
       recoveryPassword: String,
@@ -29,19 +35,25 @@ export class Students {
     verifyRegisterAccount: string;
   };
 
+  @Prop({})
+  isFirstLogin: boolean;
+
   @Prop(
     raw({
-      idUniversity: mongoose.Types.ObjectId,
+      _id: mongoose.Types.ObjectId,
       name: String,
     }),
   )
   university: {
-    idUniversity: mongoose.Types.ObjectId;
+    _id: mongoose.Types.ObjectId;
     name: string;
   };
 
-  @Prop(raw({ idCareer: mongoose.Types.ObjectId, name: String }))
-  career: { idCareer: mongoose.Types.ObjectId; name: string };
+  @Prop(raw({ _id: mongoose.Types.ObjectId, name: String }))
+  career: { _id: mongoose.Types.ObjectId; name: string };
+
+  @Prop({})
+  cicleName: string;
 
   @Prop({ type: AuditPropertiesSchema })
   auditProperties: AuditPropertiesSchema;
