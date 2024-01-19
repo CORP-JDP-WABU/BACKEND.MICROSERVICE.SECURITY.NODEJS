@@ -33,7 +33,7 @@ export class FnAccountRecoveryVerifyService {
       'sendCodes.recoveryPassword': code,
     });
     if (!student) {
-      throw new exception.InvalidRecoveryPasswordValidateCustomException(
+      throw new exception.InvalidValidateCodeCustomException(
         `execute`,
       );
     }

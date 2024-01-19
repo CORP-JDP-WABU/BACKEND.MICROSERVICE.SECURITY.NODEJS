@@ -77,7 +77,7 @@ export class AccountController {
   })
   @ApiConflictResponse({
     description: 'The register verify has been failed by conflict account',
-    type: exception.InvalidRegisterAccountValidateCustomException,
+    type: exception.InvalidValidateCodeCustomException,
   })
   @ApiConflictResponse({
     description: 'The register verify has been failed by conflict account',

@@ -18,15 +18,9 @@ export class InvalidHashCustomException extends ConflictException {
   }
 }
 
-export class InvalidRecoveryPasswordValidateCustomException extends ConflictException {
+export class InvalidValidateCodeCustomException extends ConflictException {
   constructor(originException: string) {
-    super(`codigo de recuperacion vencido y/o no existe`);
-  }
-}
-
-export class InvalidRegisterAccountValidateCustomException extends ConflictException {
-  constructor(originException: string) {
-    super(`codigo de verificación vencido y/o no existe`);
+    super(`Código de validación de correo incorrecto`);
   }
 }
 

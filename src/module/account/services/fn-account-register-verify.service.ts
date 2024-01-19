@@ -34,7 +34,7 @@ export class FnAccountRegisterVerifyService {
     });
 
     if (!student) {
-      throw new exception.InvalidRegisterAccountValidateCustomException(
+      throw new exception.InvalidValidateCodeCustomException(
         `execute`,
       );
     }
