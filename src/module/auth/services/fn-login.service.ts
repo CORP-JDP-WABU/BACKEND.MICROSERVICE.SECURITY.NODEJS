@@ -92,9 +92,9 @@ export class FnLoginService {
     return keys;
   }
 
-  private async generateTokenForUser(idUser: string, email: string) {
+  private async generateTokenForUser(idStudent: string, email: string) {
     try {
-      const token = await this.jwtService.signAsync({ idUser, email });
+      const token = await this.jwtService.signAsync({ idStudent, email });
       const encrypt = await this.cryptoService.encrypt(token);
       return {
         tokenEncrypt: encrypt,
