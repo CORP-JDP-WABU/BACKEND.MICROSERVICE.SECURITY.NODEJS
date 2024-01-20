@@ -17,8 +17,10 @@ export class MailService {
 
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';
+  private fileNameAccountWelcome: string = 'account-welcome';
   private subjectAccountRecovery: string = 'WABU: ACCOUNT RECOVERY PASSWORD';
   private subjectAccountRegister: string = 'WABU: ACCOUNT REGISTER';
+  private subjectAccountWelcome: string = 'WABU: WELCOME';
 
   constructor() {
     this.setupTransporter();
@@ -50,6 +52,21 @@ export class MailService {
       from: 'tismart.fernando@gmail.com',
       to: 'tismart.fernando@gmail.com',
       subject: this.subjectAccountRegister,
+      html,
+    };
+    return this.transporter.sendMail(options);
+  }
+
+  async sendAccountWelcome(emailTo: string, fullName: String) {
+    const template = this.findTemplateHbs(this.fileNameAccountWelcome);
+    const compiledTemplate = handlebars.compile(template);
+    const html = compiledTemplate({
+      fullName,
+    });
+    const options = {
+      from: 'tismart.fernando@gmail.com',
+      to: 'tismart.fernando@gmail.com',
+      subject: this.subjectAccountWelcome,
       html,
     };
     return this.transporter.sendMail(options);

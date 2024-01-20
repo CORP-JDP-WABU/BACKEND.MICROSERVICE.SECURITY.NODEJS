@@ -134,7 +134,7 @@ export class FnAccountRegisterService {
       name: universityCareerAndCicles.name
     }
 
-    await this.studentModel.updateOne(
+    const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
       {
         $set: {
@@ -149,7 +149,12 @@ export class FnAccountRegisterService {
           career,
           cicleName
         },
-      },
+      }
+    );
+
+    await this.mailService.sendAccountWelcome(
+      updateStudent.email,
+      `${updateStudent.firstName} ${updateStudent.lastName}`,
     );
 
     return <dto.ResponseGenericDto>{
@@ -206,7 +211,7 @@ export class FnAccountRegisterService {
   ): Promise<String> {
     let code = '';
 
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < 6; index++) {
       const randomCharacters = RECOVERY.VALUE.charAt(
         Math.floor(Math.random() * RECOVERY.VALUE.length),
       );
