@@ -47,9 +47,9 @@ export class NotExistStudentRecoveryCustomException extends ConflictException {
 }
 
 export class NotExistUniversityRegisterCustomException extends ConflictException {
-  constructor() {
+  constructor(customCode: string) {
     super(
-      `Los datos universitarios no existen [${NotExistUniversityRegisterCustomException.name}`,
+      `Los datos universitarios no existen [${customCode}`,
     );
   }
 }

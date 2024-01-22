@@ -126,7 +126,7 @@ export class FnAccountRegisterService {
     }
 
     if(!university) {
-      throw new exception.NotExistUniversityRegisterCustomException();
+      throw new exception.NotExistUniversityRegisterCustomException(`REGISTER_ACCOUNT_NOTEXIST_UNIVERSITY`);
     }
 
     const universityCareerAndCicles = university.careers.find(career => career._id.toString() == idCareer);
