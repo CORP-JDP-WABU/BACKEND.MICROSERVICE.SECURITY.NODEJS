@@ -8,6 +8,7 @@ import * as schemas from 'src/common/schemas';
 import { CryptoService } from 'src/common/crypto/crypto.service';
 import { MailService } from 'src/common/mail/mail.service';
 import { RECOVERY } from 'src/common/const/generate.const';
+import { IAccountWelcome } from 'src/common/mail/interfaces';
 
 @Injectable()
 export class FnAccountRegisterService {
@@ -31,9 +32,10 @@ export class FnAccountRegisterService {
       requestAccountRegisterDto.hash,
       requestAccountRegisterDto.data,
     );
+    this.logger.debug(`::generateDecryptCredential::${email}-${password}`);
     const studentRegister = await this.studentModel.findOne({
       email,
-      'auditProperties.status.code': 2,
+      //'auditProperties.status.code': 2,
     });
 
     if (studentRegister) {
@@ -127,7 +129,7 @@ export class FnAccountRegisterService {
       throw new exception.NotExistUniversityRegisterCustomException();
     }
 
-    const universityCareerAndCicles = university.careers.find(career => career._id == mongoose.Types.ObjectId(idCareer));
+    const universityCareerAndCicles = university.careers.find(career => career._id.toString() == idCareer);
 
     const career = {
       _id: universityCareerAndCicles._id,
@@ -153,8 +155,16 @@ export class FnAccountRegisterService {
     );
 
     await this.mailService.sendAccountWelcome(
-      updateStudent.email,
-      `${updateStudent.firstName} ${updateStudent.lastName}`,
+      <IAccountWelcome> {
+        email: updateStudent.email,
+        password: updateStudent.password,
+        fullName: `${firstName} ${lastName}`,
+        university: university.name,
+        career: career.name,
+        information: information,
+        profileUrl: profileUrl,
+        cicle: cicleName
+      }
     );
 
     return <dto.ResponseGenericDto>{

@@ -10,6 +10,7 @@ import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import { join } from 'path';
 import { imageLogo } from '../const/generate.const';
+import { IAccountWelcome } from './interfaces';
 
 @Injectable()
 export class MailService {
@@ -57,12 +58,10 @@ export class MailService {
     return this.transporter.sendMail(options);
   }
 
-  async sendAccountWelcome(emailTo: string, fullName: String) {
+  async sendAccountWelcome(iAccountWelcome: IAccountWelcome) {
     const template = this.findTemplateHbs(this.fileNameAccountWelcome);
     const compiledTemplate = handlebars.compile(template);
-    const html = compiledTemplate({
-      fullName,
-    });
+    const html = compiledTemplate(iAccountWelcome);
     const options = {
       from: 'tismart.fernando@gmail.com',
       to: 'tismart.fernando@gmail.com',

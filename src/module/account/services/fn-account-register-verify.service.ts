@@ -43,6 +43,7 @@ export class FnAccountRegisterVerifyService {
       message: 'Processo exitoso',
       operation: `::${FnAccountRegisterVerifyService.name}::execute`,
       data: <accountDto.ResponseAccountRegisterVerifyDto>{
+        idStudent: student.id,
         isValid: true,
       },
     };
