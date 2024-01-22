@@ -16,6 +16,7 @@ import { IAccountWelcome } from './interfaces';
 export class MailService {
   private transporter: nodemailer.Transporter;
 
+  private fileNameAccountSuccessRecovery: string = 'account-recovery-success';
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';
   private fileNameAccountWelcome: string = 'account-welcome';
@@ -62,6 +63,21 @@ export class MailService {
     const template = this.findTemplateHbs(this.fileNameAccountWelcome);
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate(iAccountWelcome);
+    const options = {
+      from: 'tismart.fernando@gmail.com',
+      to: 'tismart.fernando@gmail.com',
+      subject: this.subjectAccountWelcome,
+      html,
+    };
+    return this.transporter.sendMail(options);
+  }
+
+  async sendRecoverySuccess(firstName: string) {
+    const template = this.findTemplateHbs(this.fileNameAccountSuccessRecovery);
+    const compiledTemplate = handlebars.compile(template);
+    const html = compiledTemplate({
+      firstName
+    });
     const options = {
       from: 'tismart.fernando@gmail.com',
       to: 'tismart.fernando@gmail.com',
