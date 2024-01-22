@@ -65,7 +65,7 @@ export class FnLoginService {
     });
     if (!userByEmail)
       throw new exception.InvalidCredentialsEmailCustomException(
-        `findUserByEmailPassword`,
+        `LOGIN_EMAIL_FAILED`,
       );
 
     const userByEmailPassword = await this.studentModel.findOne({
@@ -75,7 +75,7 @@ export class FnLoginService {
     });
     if (!userByEmailPassword)
       throw new exception.InvalidCredentialsPasswordCustomException(
-        `findUserByEmailPassword`,
+        `LOGIN_PASSWORS_FAILED`,
       );
 
     return userByEmailPassword;

@@ -39,7 +39,7 @@ export class FnAccountRegisterService {
     });
 
     if (studentRegister) {
-      throw new exception.ExistStudentCustomException();
+      throw new exception.ExistStudentCustomException(`REGISTER_ACCOUNT_EMAIL_FAIL`);
     }
 
     const studentRegisterPeding = await this.studentModel.findOne({
@@ -122,7 +122,7 @@ export class FnAccountRegisterService {
     const [student, university] = await Promise.all([studentPromise, universityPromise]);
 
     if (!student) {
-      throw new exception.ExistStudentRegisterPendingCustomException();
+      throw new exception.ExistStudentRegisterPendingCustomException(`REGISTER_ACCOUNT_EXIST_STUDENT`);
     }
 
     if(!university) {

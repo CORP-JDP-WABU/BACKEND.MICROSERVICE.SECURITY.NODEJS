@@ -33,7 +33,7 @@ export class FnAccountRecoveryService {
     const student = await this.studentModel.findOne({ email });
     
     if(!student) {
-      throw new exception.NotExistStudentRecoveryCustomException();
+      throw new exception.NotExistStudentRecoveryCustomException(`RECOVERY_PASSWORD_NOT_EXIST_STUDENT`);
     }
 
     this.logger.debug(`::execute::student::[${student.id} - ${student.email}]`);
@@ -67,7 +67,7 @@ export class FnAccountRecoveryService {
     const student = await this.studentModel.findOne({ email });
 
     if(!student) {
-      throw new exception.NotExistStudentRecoveryCustomException();
+      throw new exception.NotExistStudentRecoveryCustomException('RECOVERY_PASSWORD_NOT_EXIST_STUDENT');
     }
 
     this.logger.debug(
