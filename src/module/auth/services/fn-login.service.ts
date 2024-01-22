@@ -75,7 +75,7 @@ export class FnLoginService {
     });
     if (!userByEmailPassword)
       throw new exception.InvalidCredentialsPasswordCustomException(
-        `LOGIN_PASSWORS_FAILED`,
+        `LOGIN_PASSWORD_FAILED`,
       );
 
     return userByEmailPassword;
