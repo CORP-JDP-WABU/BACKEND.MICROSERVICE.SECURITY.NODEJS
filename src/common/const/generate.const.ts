@@ -3,5 +3,5 @@ export const KEYS = {
 };
 
 export const RECOVERY = {
-  VALUE: '0123456789 ',
+  VALUE: '0123456789',
 };
