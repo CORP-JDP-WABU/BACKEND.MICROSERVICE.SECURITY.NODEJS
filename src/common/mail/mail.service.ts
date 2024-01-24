@@ -9,7 +9,6 @@ import * as aws from 'aws-sdk';
 import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import { join } from 'path';
-import { imageLogo } from '../const/generate.const';
 import { IAccountWelcome } from './interfaces';
 
 @Injectable()

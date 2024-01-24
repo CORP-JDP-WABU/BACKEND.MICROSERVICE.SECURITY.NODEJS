@@ -83,7 +83,7 @@ export class FnAccountRecoveryService {
       },
     );
 
-    await this.mailService.sendRecoverySuccess(
+    this.mailService.sendRecoverySuccess(
       student.firstName
     );
     return <dto.ResponseGenericDto>{
