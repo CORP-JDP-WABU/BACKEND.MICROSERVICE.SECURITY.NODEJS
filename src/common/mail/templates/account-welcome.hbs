@@ -7,28 +7,28 @@
       <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
       <style>
          body {
-         margin: 0; /* Eliminar márgenes predeterminados del cuerpo */
-         font-family: 'SF Pro Display', 'SF Pro Display', sans-serif; /* Usar la fuente SF Pro Display */
+            margin: 0;
+            font-family: 'SF Pro Display', 'SF Pro Display', sans-serif;
          }
          table {
-         width: 100%;
-         height: 100vh;
-         background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png'); /* Ruta de la imagen */
-         background-size: cover; /* Ajustar la imagen al tamaño de la tabla */
-         border-collapse: collapse;
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png'); /* Ruta de la imagen */
+            background-size: cover;
+            border-collapse: collapse;
          }
          td {
-         padding: 10px; /* Espaciado interno de las celdas */
-         text-align: center; /* Alineación del texto al centro */
+            padding: 10px;
+            text-align: center;
          }
          .wabu-logo {
-         width: 100px;
-         height: 100px;
-         flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
          }
         
         .wabu-header-title {
-        	color: #FFF;
+        	   color: #FFF;
             text-align: center;
             font-family: 'Gotham Rounded' sans-serif;
             font-size: 30px;
@@ -39,7 +39,7 @@
         }
         
          .wabu-header-title-desc {
-        	color: #FFF;
+        	   color: #FFF;
             text-align: center;
             font-family: 'Gotham Rounded' sans-serif;
             font-size: 12px;
@@ -49,92 +49,101 @@
             text-transform: uppercase;
         }
         .wabu-data {
-        	color: #00315B;
+        	   color: #00315B;
             font-family: 'SF Pro Display', sans-serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
         }
+        
+        .wabu-data-info {
+        	   color: #00315B;
+          	font-family: 'SF Pro Display', sans-serif;
+          	font-size: 13px;
+          	font-style: normal;
+          	font-weight: 700;
+          	line-height: normal;
+        }
          .wabu-hello {
-         color: #103E64;
-         text-align: center;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 35px;
-         font-style: normal;
-         font-weight: 700;
-         line-height: normal;
+            color: #103E64;
+            text-align: center;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
          }
          .wabu-code-desc {
-         color: #103E64;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 14px;
-         font-style: normal;
-         font-weight: 400;
-         line-height: normal;
+            color: #103E64;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
          }
          .wabu-footer {
-         color: #00315B;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 15px;
-         font-style: normal;
-         font-weight: 700;
-         line-height: normal;
+            color: #00315B;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
          }
          .wabu-footer-sino {
-         color: #00315B;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 15px;
-         font-style: normal;
-         font-weight: 400;
-         line-height: normal;
+            color: #00315B;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
          }
          .wabu-footer-avisanos {
-         color: #00BAFB !important;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 15px;
-         font-style: normal;
-         font-weight: 400;
-         line-height: normal;
+            color: #00BAFB !important;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
          }
          .white {
-         background-color: #FFFFFF;
+            background-color: #FFFFFF;
          }
          .span-code-top {
-         font-size: 15px;
-    font-weight: bold;
-    color: #FFF;
-    background-color: #1283FF;
-    display: inline-block;
-    margin: auto;
-    line-height: 45px; /* Adjusted line-height to match the height */
-    width: 300px;
-    height: 45px;
-    text-align: center; /* Center-aligns the text */
-    padding-left: 10px; /* Adds left padding for left alignment */
-    padding-right: 10px; /* Adds right padding for left alignment */
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #FFF;
+            background-color: #1283FF;
+            display: inline-block;
+            margin: auto;
+            line-height: 45px;
+            width: 300px;
+            height: 45px;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
          }
         .span-code-bottom {
-         font-size: 15px;
-    font-weight: bold;
-    color: #FFF;
-    background-color: #1283FF;
-    display: inline-block;
-    margin: auto;
-    line-height: 45px; /* Adjusted line-height to match the height */
-    width: 300px;
-    height: 45px;
-    text-align: center; /* Center-aligns the text */
-    padding-left: 10px; /* Adds left padding for left alignment */
-    padding-right: 10px; /* Adds right padding for left alignment */
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #FFF;
+            background-color: #1283FF;
+            display: inline-block;
+            margin: auto;
+            line-height: 45px;
+            width: 300px;
+            height: 45px;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
          }
          .horizontal-line {
-         border-bottom: 1px solid #A4A4A4;
-         margin: 20px 0;
+            border-bottom: 1px solid #A4A4A4;
+            margin: 20px 0;
          }
       </style>
    </head>
@@ -147,15 +156,15 @@
          border-collapse: collapse;
          ">
         <tr>
-          <td  colspan="5"><p class="wabu-header-title"> ¡BIENVENIDO A WABU!</p> 
-            <img class="wabu-logo" src="https://wabu-development.s3.amazonaws.com/default/email/wabulogocolor.png">
-             <p class="wabu-header-title-desc">“Potenciando tu experiencia universitaria”</p>
-              </td>
+            <td  colspan="5"><p class="wabu-header-title"> ¡BIENVENIDO A WABU!</p> 
+               <img class="wabu-logo" src="https://wabu-development.s3.amazonaws.com/default/email/wabulogocolor.png">
+                  <p class="wabu-header-title-desc">“Potenciando tu experiencia universitaria”</p>
+            </td>
         </tr>
          <tr>
             <td></td>
-            <td colspan="3" class="white" style="border-top-left-radius: 25px; border-top-right-radius: 25px; text-align: left;">
-              <p class="wabu-data">Tus datos de ingreso son los siguientes:</p>
+            <td colspan="3" class="white" style="border-top-left-radius: 15px; border-top-right-radius: 15px; text-align: left;">
+              <p class="wabu-data" style="margin-left: 20px">Tus datos de ingreso son los siguientes:</p>
             </td>
             <td></td>
          </tr>
@@ -163,7 +172,7 @@
             <td></td>
 <td colspan="3" class="white" style="padding: 0px; !important">
                <span class="span-code-top" > 
-               	email
+               	email: {{ email }}
                </span>
             </td>
             <td></td>
@@ -172,7 +181,7 @@
             <td></td>
             <td colspan="3" class="white" style="padding: 0px; !important">
                <span class="span-code-bottom" style="align: left"> 
-                password
+                password: {{ password }}
                </span>
             </td>
             <td></td>
@@ -189,12 +198,32 @@
            <tr>
             <td></td>
             <td colspan="3" class="white" style="text-align: left;">
-               <p class="wabu-code-desc">
+               <p class="wabu-code-desc" style="margin-left: 20px">
                   La información que ingresaste es:
                </p>
             </td>
             <td></td>
          </tr>
+          <tr>
+            <td></td>
+          	<td colspan="3" class="white">
+              <img class="wabu-logo" src={{ profileUrl }}></img></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="3" class="white">
+              <p class="wabu-data" style="text-align: left; margin-left: 20px">
+                  Nombre y apellido:<span class="wabu-data-info">{{ fullName }}</span><br><br>
+                  Universidad:<span class="wabu-data-info">{{ university }}</span><br><br>
+                  Carrera:<span class="wabu-data-info">{{ career }}</span><br><br>
+                  Ciclo:<span class="wabu-data-info">{{ cicle }}</span><br><br>
+                  Descripción:<span class="wabu-data-info">{{ information }}<span>
+               </p>
+            </td>
+            <td></td>
+          </tr>
+              
          <tr>
             <td></td>
             <td colspan="3" class="white">
@@ -204,7 +233,7 @@
          </tr>
          <tr>
             <td></td>
-            <td colspan="3" class="white" style="text-align: left;" >
+            <td colspan="3" class="white" style="text-align: left; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
                <p class="wabu-footer" style="margin-left: 20px">
                   ¿No solicitaste este cambio?
                </p>
@@ -214,6 +243,8 @@
             </td>
             <td></td>
          </tr>
+          <tr>
+            <td></td><tr>
       </table>
    </body>
 </html>
