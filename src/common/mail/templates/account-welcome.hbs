@@ -51,7 +51,7 @@
         .wabu-data {
         	color: #00315B;
             font-family: 'SF Pro Display', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -65,20 +65,10 @@
          font-weight: 700;
          line-height: normal;
          }
-         .wabu-hello-desc {
-         color: #103E64;
-         text-align: center;
-         font-family: 'SF Pro Display', sans-serif;
-         font-size: 20px;
-         font-style: normal;
-         font-weight: 400;
-         line-height: normal;
-         }
          .wabu-code-desc {
          color: #103E64;
-         text-align: center;
          font-family: 'SF Pro Display', sans-serif;
-         font-size: 20px;
+         font-size: 14px;
          font-style: normal;
          font-weight: 400;
          line-height: normal;
@@ -110,14 +100,37 @@
          .white {
          background-color: #FFFFFF;
          }
-         .span-code {
-         font-size: 40px;                                               		font-weight: bold; 
-         color: #FFF;													background-color: #1283FF;
-         display: inline-block;
-         margin: auto;                                                           line-height: 67px;
-         width: 300px;
-         height: 70px;
-         border-radius: 20px;
+         .span-code-top {
+         font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #1283FF;
+    display: inline-block;
+    margin: auto;
+    line-height: 45px; /* Adjusted line-height to match the height */
+    width: 300px;
+    height: 45px;
+    text-align: center; /* Center-aligns the text */
+    padding-left: 10px; /* Adds left padding for left alignment */
+    padding-right: 10px; /* Adds right padding for left alignment */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+         }
+        .span-code-bottom {
+         font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #1283FF;
+    display: inline-block;
+    margin: auto;
+    line-height: 45px; /* Adjusted line-height to match the height */
+    width: 300px;
+    height: 45px;
+    text-align: center; /* Center-aligns the text */
+    padding-left: 10px; /* Adds left padding for left alignment */
+    padding-right: 10px; /* Adds right padding for left alignment */
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
          }
          .horizontal-line {
          border-bottom: 1px solid #A4A4A4;
@@ -134,40 +147,56 @@
          border-collapse: collapse;
          ">
         <tr>
-          <td  colspan="8"><p class="wabu-header-title"> ¡BIENVENIDO A WABU!</p> 
+          <td  colspan="5"><p class="wabu-header-title"> ¡BIENVENIDO A WABU!</p> 
             <img class="wabu-logo" src="https://wabu-development.s3.amazonaws.com/default/email/wabulogocolor.png">
              <p class="wabu-header-title-desc">“Potenciando tu experiencia universitaria”</p>
               </td>
         </tr>
          <tr>
             <td></td>
-            <td colspan="3" class="white" style="border-top-left-radius: 25px; border-top-right-radius: 25px;">
-              <p class="wabu-hello-">Tus datos de ingreso son los siguientes:</p>
+            <td colspan="3" class="white" style="border-top-left-radius: 25px; border-top-right-radius: 25px; text-align: left;">
+              <p class="wabu-data">Tus datos de ingreso son los siguientes:</p>
             </td>
             <td></td>
          </tr>
          <tr>
             <td></td>
-            <td colspan="3" class="white">
-               <span class="span-code" > 
-               {code}
+<td colspan="3" class="white" style="padding: 0px; !important">
+               <span class="span-code-top" > 
+               	email
+               </span>
+            </td>
+            <td></td>
+         </tr>
+          <tr>
+            <td></td>
+            <td colspan="3" class="white" style="padding: 0px; !important">
+               <span class="span-code-bottom" style="align: left"> 
+                password
                </span>
             </td>
             <td></td>
          </tr>
          <tr>
-            <td>a</td>
+            <td></td>
             <td colspan="3" class="white">
                <p class="wabu-code-desc">
-                  Úsalo para acceder a tu cuenta.
-                  <br> Gracias,
-                  <br> El equipo de Wabu.
+                  Recuerda no compartirlos.
                </p>
             </td>
-            <td>a</td>
+            <td></td>
+         </tr>
+           <tr>
+            <td></td>
+            <td colspan="3" class="white" style="text-align: left;">
+               <p class="wabu-code-desc">
+                  La información que ingresaste es:
+               </p>
+            </td>
+            <td></td>
          </tr>
          <tr>
-            <td ></td>
+            <td></td>
             <td colspan="3" class="white">
                <div class="horizontal-line"></div>
             </td>
