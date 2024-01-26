@@ -31,9 +31,11 @@ export class FnAccountRecoveryService {
       requestAccountRecovery.data,
     );
     const student = await this.studentModel.findOne({ email });
-    
-    if(!student) {
-      throw new exception.NotExistStudentRecoveryCustomException(`RECOVERY_PASSWORD_NOT_EXIST_STUDENT`);
+
+    if (!student) {
+      throw new exception.NotExistStudentRecoveryCustomException(
+        `RECOVERY_PASSWORD_NOT_EXIST_STUDENT`,
+      );
     }
 
     this.logger.debug(`::execute::student::[${student.id} - ${student.email}]`);
@@ -52,8 +54,7 @@ export class FnAccountRecoveryService {
       data: <accountDto.ResponseAccountRecoveryDto>{
         messageId: sendEmail.messageId,
       },
-    }
-    
+    };
   }
 
   async executeUpdate(
@@ -66,8 +67,10 @@ export class FnAccountRecoveryService {
     );
     const student = await this.studentModel.findOne({ email });
 
-    if(!student) {
-      throw new exception.NotExistStudentRecoveryCustomException('RECOVERY_PASSWORD_NOT_EXIST_STUDENT');
+    if (!student) {
+      throw new exception.NotExistStudentRecoveryCustomException(
+        'RECOVERY_PASSWORD_NOT_EXIST_STUDENT',
+      );
     }
 
     this.logger.debug(
@@ -78,14 +81,12 @@ export class FnAccountRecoveryService {
       {
         $set: {
           password,
-          'sendCodes.recoveryPassword': '0000'
+          'sendCodes.recoveryPassword': '0000',
         },
       },
     );
 
-    this.mailService.sendRecoverySuccess(
-      student.firstName
-    );
+    this.mailService.sendRecoverySuccess(student.firstName);
     return <dto.ResponseGenericDto>{
       message: 'Processo exitoso',
       operation: `::${FnAccountRecoveryService.name}::execute`,
@@ -93,7 +94,6 @@ export class FnAccountRecoveryService {
         isUpdate: true,
       },
     };
-
   }
 
   private async findKeysByRequestHash(requestHash: string) {

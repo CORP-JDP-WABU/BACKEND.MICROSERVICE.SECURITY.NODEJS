@@ -1,244 +1,190 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="../css/style-1.css" />
-    <title></title>
-    <style type="text/css">
-        center>table {
-            width: 950px;
-        }
-
-        center>table>tbody>tr>td:nth-child(1),
-        center>table>tbody>tr>td:nth-child(3) {
-            width: 15%;
-        }
-
-        center>table>tbody>tr>td:nth-child(2) {
-            width: 600px;
-        }
-
-        center>table>tbody>tr>td:nth-child(2)>table>tbody>tr>td>table {
-            padding-left: 113px;
-            padding-right: 104px;
-            padding: 60px 70px 60px;
-        }
-
-        @media (max-width: 601px) {
-            center>table {
-                width: 100%;
-            }
-            center>table>tbody>tr>td:nth-child(1),
-            center>table>tbody>tr>td:nth-child(3) {
-                width: 0;
-            }
-            center>table>tbody>tr>td:nth-child(2) {
-                width: 100%;
-            }
-            center>table>tbody>tr>td:nth-child(2)>table>tbody>tr>td>table {
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-                padding: 15px;
-            }
-        }
-
-        .circle-img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            overflow: hidden;
-            /* Asegura que la imagen se ajuste al círculo */
-        }
-
-        .horizontal-line {
-            border-bottom: 1px solid #A4A4A4;
-            /* Puedes ajustar el grosor y el color de la línea según tus preferencias */
-            margin: 20px 0;
-            /* Puedes ajustar el margen superior e inferior según tus necesidades */
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Tabla con Imagen de Fondo</title>
+      <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+      <style>
+         body {
+         margin: 0; /* Eliminar márgenes predeterminados del cuerpo */
+         font-family: 'SF Pro Display', 'SF Pro Display', sans-serif; /* Usar la fuente SF Pro Display */
+         }
+         table {
+         width: 100%;
+         height: 100vh;
+         background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png'); /* Ruta de la imagen */
+         background-size: cover; /* Ajustar la imagen al tamaño de la tabla */
+         border-collapse: collapse;
+         }
+         td {
+         padding: 10px; /* Espaciado interno de las celdas */
+         text-align: center; /* Alineación del texto al centro */
+         }
+         .wabu-logo {
+         width: 100px;
+         height: 100px;
+         flex-shrink: 0;
+         }
+        
+        .wabu-header-title {
+        	color: #FFF;
+            text-align: center;
+            font-family: 'Gotham Rounded' sans-serif;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-transform: uppercase;
         }
         
-        .information-register {
-        	font-size: 13px; 
-			font-weight: bold; 
-            color: #1283FF;
-            display: inline-block;
-            margin: auto;
-            text-align: left;
+         .wabu-header-title-desc {
+        	color: #FFF;
+            text-align: center;
+            font-family: 'Gotham Rounded' sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-transform: uppercase;
         }
-    </style>
-</head>
-
-<body style="margin: 0; padding: 30px 0; min-width: 100%!important;">
-    <!-- wrapper -->
-    <center>
-        <table align="center" cellspacing="0" cellpadding="0">
-            <tr>
-                <!-- add &nbsp; to ensure it will be rendered -->
-                <td>&nbsp;</td>
-                <!-- in the middle cell you set your max-width -->
-                <!-- notice double declaration for yahoo in html attribute -->
-                <td align="center" valign="top">
-                    <!-- this table scales up to parent cell -->
-                    <table align="center" border="0" width="100%" style="width: 100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <!-- content!! -->
-                            <td align="center" class="table-border" style="font-family:Arial; font-size: 14px; border-radius: 2px; max-height: 565px; max-width: 699px;">
-                                <table class="content-table" width="100%" height="100px" bgcolor="#ffffff" style="font-family: sans-serif; color: #040028; line-height: 130%; font-weight: 100; font-size: 16px; border-radius: 10px;">
-                                    <tr>
-                                        <td align="center" style="
-                                                        color: #5A6066; 
-                                                        font-weight: 500;
-                                                        font-size: 30px;
-                                                        line-height: 24px;
-                                                        font-weight: 400;">
-                                            ¡BIENVENIDO A WABU!<br />
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td height="20px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td align="center" height="80px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;">
-                                            <img alt="Logo" width="70px" src="https://wabu-development.s3.amazonaws.com/default/email/wabu-logo.png" />
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td height="10x" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td align="center" style="
-                                                        color: #5A6066; 
-                                                        font-weight: 500;
-                                                        font-size: 12px;
-                                                        line-height: 12px;
-                                                        font-weight: 600;">
-                                            "POTENCIA TU EXPERIENCIA UNIVERSITARIA"<br />
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td height="30px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="
-                                                        color: #5A6066; 
-                                                        font-weight: 500;
-                                                        font-size: 12px;
-                                                        line-height: 12px;
-                                                        font-weight: 400;">
-                                            Tus datos de ingreso son los siguientes:<br />
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td height="15px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center; padding-top: 0; padding-bottom: 0;">
-                                            <span style="
-                                                border: 1.5px solid #7490AD; 
-                                                font-size: 15px; 
-                                                font-weight: bold; 
-                                                color: #1283FF;
-                                                display: inline-block;
-                                                margin: auto;
-                                                line-height: 35px;
-                                                width: 300px;
-                                                height: 70px;
-                                                border-radius: 5px; text-align: left; padding: 10px;">
-                                                {{ email }} <br>
-                                                {{ password }}
-                                            </span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td height="10px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center" style="font-size: 12px; color: #5A6066;">
-                                            Recuerda no compartirlos
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td height="10px" style="font-size: 1px; line-height: 1px; padding-top: 0; padding-bottom: 0;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; "> La información que ingresaste es: </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 10px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center" style=" font-weight: bold; color: #5A6066; font-weight: 600; padding-top: 0; padding-bottom: 0;">
-
-                                            <div class="circle-img">
-                                                <img src="https://wabu-development.s3.amazonaws.com/profile-student-avatar-001.png" alt="alternatetext" style="width: 100%; height: 100%; object-fit: cover;">
-                                            </div>
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 20px;"></td>
-                                    </tr>
-                                    <tr>
-                                    	
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; ">Nombre y Apellido: <span class="information-register"> {{ fullName }} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="height: 5px;"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; ">Universidad: <span class="information-register">{{ university }} </span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="height: 5px;"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; ">Carrera: <span class="information-register">{{ career }}</span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="height: 5px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; ">Ciclo: <span class="information-register">{{ cicle }}</span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 5px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 13px; ">Descripción: <span class="information-register">{{ information }} </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center">
-                                            <div class="horizontal-line"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color: #5A6066; margin-bottom: 20px; padding-top: 0; padding-bottom: 0; font-size: 12px; "> ¿No solicitaste este cambio? <br> Si no solicitaste una nueva contraseña,<a href="https://www.google.com/">avisanos</a></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <!-- add &nbsp; to ensure it will be rendered -->
-                <td>&nbsp;</td>
-            </tr>
-        </table>
-    </center>
-</body>
-
+        .wabu-data {
+        	color: #00315B;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+         .wabu-hello {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 35px;
+         font-style: normal;
+         font-weight: 700;
+         line-height: normal;
+         }
+         .wabu-hello-desc {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 20px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-code-desc {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 20px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-footer {
+         color: #00315B;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 700;
+         line-height: normal;
+         }
+         .wabu-footer-sino {
+         color: #00315B;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-footer-avisanos {
+         color: #00BAFB !important;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .white {
+         background-color: #FFFFFF;
+         }
+         .span-code {
+         font-size: 40px;                                               		font-weight: bold; 
+         color: #FFF;													background-color: #1283FF;
+         display: inline-block;
+         margin: auto;                                                           line-height: 67px;
+         width: 300px;
+         height: 70px;
+         border-radius: 20px;
+         }
+         .horizontal-line {
+         border-bottom: 1px solid #A4A4A4;
+         margin: 20px 0;
+         }
+      </style>
+   </head>
+   <body>
+      <table style="
+         width: 100%;
+         height: 100vh;
+         background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png');
+         background-size: cover;
+         border-collapse: collapse;
+         ">
+        <tr>
+          <td  colspan="8"><p class="wabu-header-title"> ¡BIENVENIDO A WABU!</p> 
+            <img class="wabu-logo" src="https://wabu-development.s3.amazonaws.com/default/email/wabulogocolor.png">
+             <p class="wabu-header-title-desc">“Potenciando tu experiencia universitaria”</p>
+              </td>
+        </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white" style="border-top-left-radius: 25px; border-top-right-radius: 25px;">
+              <p class="wabu-hello-">Tus datos de ingreso son los siguientes:</p>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white">
+               <span class="span-code" > 
+               {code}
+               </span>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td>a</td>
+            <td colspan="3" class="white">
+               <p class="wabu-code-desc">
+                  Úsalo para acceder a tu cuenta.
+                  <br> Gracias,
+                  <br> El equipo de Wabu.
+               </p>
+            </td>
+            <td>a</td>
+         </tr>
+         <tr>
+            <td ></td>
+            <td colspan="3" class="white">
+               <div class="horizontal-line"></div>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white" style="text-align: left;" >
+               <p class="wabu-footer" style="margin-left: 20px">
+                  ¿No solicitaste este cambio?
+               </p>
+               <p class="wabu-footer-sino" style="margin-left: 20px"> 
+                  Si no solicitaste una nueva contraseña, <a class="wabu-footer-avisanos" href="www.google.com">avísanos</a>.
+               </p>
+            </td>
+            <td></td>
+         </tr>
+      </table>
+   </body>
 </html>

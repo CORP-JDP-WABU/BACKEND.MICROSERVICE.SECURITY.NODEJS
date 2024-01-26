@@ -11,17 +11,19 @@ export class Universities {
 
   @Prop(
     raw({
-      type: [{
-        _id: mongoose.Types.ObjectId,
-        name: String,
-        cicles: [String]
-      }],
+      type: [
+        {
+          _id: mongoose.Types.ObjectId,
+          name: String,
+          cicles: [String],
+        },
+      ],
     }),
   )
   careers: {
-    _id: mongoose.Types.ObjectId,
-    name: string,
-    cicles: string[]
+    _id: mongoose.Types.ObjectId;
+    name: string;
+    cicles: string[];
   }[];
 
   @Prop({

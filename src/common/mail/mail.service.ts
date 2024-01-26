@@ -15,6 +15,7 @@ import { IAccountWelcome } from './interfaces';
 export class MailService {
   private transporter: nodemailer.Transporter;
 
+  private emailSend: string = "devwabu@gmail.com";
   private fileNameAccountSuccessRecovery: string = 'account-recovery-success';
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';
@@ -35,8 +36,8 @@ export class MailService {
       name: fullName,
     });
     const options = {
-      from: 'tismart.fernando@gmail.com',
-      to: 'tismart.fernando@gmail.com',
+      from: this.emailSend,
+      to: this.emailSend,
       subject: this.subjectAccountRecovery,
       html,
     };
@@ -50,8 +51,8 @@ export class MailService {
       code,
     });
     const options = {
-      from: 'tismart.fernando@gmail.com',
-      to: 'tismart.fernando@gmail.com',
+      from: this.emailSend,
+      to: this.emailSend,
       subject: this.subjectAccountRegister,
       html,
     };
@@ -63,8 +64,8 @@ export class MailService {
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate(iAccountWelcome);
     const options = {
-      from: 'tismart.fernando@gmail.com',
-      to: 'tismart.fernando@gmail.com',
+      from: this.emailSend,
+      to: this.emailSend,
       subject: this.subjectAccountWelcome,
       html,
     };
@@ -75,11 +76,11 @@ export class MailService {
     const template = this.findTemplateHbs(this.fileNameAccountSuccessRecovery);
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate({
-      firstName
+      firstName,
     });
     const options = {
-      from: 'tismart.fernando@gmail.com',
-      to: 'tismart.fernando@gmail.com',
+      from: this.emailSend,
+      to: this.emailSend,
       subject: this.subjectAccountWelcome,
       html,
     };

@@ -26,7 +26,9 @@ export class InvalidValidateCodeCustomException extends ConflictException {
 
 export class ExistStudentCustomException extends ConflictException {
   constructor(customCode: string) {
-    super(`Por favor, usa el correo para iniciar sesión o crea uno nuevo [${customCode}`);
+    super(
+      `Por favor, usa el correo para iniciar sesión o crea uno nuevo [${customCode}`,
+    );
   }
 }
 
@@ -40,16 +42,12 @@ export class ExistStudentRegisterPendingCustomException extends ConflictExceptio
 
 export class NotExistStudentRecoveryCustomException extends ConflictException {
   constructor(customCode: string) {
-    super(
-      `El correo colocado no está registrado [${customCode}`,
-    );
+    super(`El correo colocado no está registrado [${customCode}`);
   }
 }
 
 export class NotExistUniversityRegisterCustomException extends ConflictException {
   constructor(customCode: string) {
-    super(
-      `Los datos universitarios no existen [${customCode}`,
-    );
+    super(`Los datos universitarios no existen [${customCode}`);
   }
 }

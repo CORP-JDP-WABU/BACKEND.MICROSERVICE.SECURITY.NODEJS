@@ -49,7 +49,7 @@ export class HttpCustomException implements ExceptionFilter {
         return response.send({
           statusCode,
           message: customMessage,
-          errorCode: customCode
+          errorCode: customCode,
         });
       default:
         return response.send({

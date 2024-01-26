@@ -39,7 +39,9 @@ export class FnAccountRegisterService {
     });
 
     if (studentRegister) {
-      throw new exception.ExistStudentCustomException(`REGISTER_ACCOUNT_EMAIL_FAIL`);
+      throw new exception.ExistStudentCustomException(
+        `REGISTER_ACCOUNT_EMAIL_FAIL`,
+      );
     }
 
     const studentRegisterPeding = await this.studentModel.findOne({
@@ -106,7 +108,7 @@ export class FnAccountRegisterService {
       profileUrl,
       idUniversity,
       idCareer,
-      cicleName
+      cicleName,
     } = requestAccountRegisterUpdateDto;
 
     const studentPromise = this.studentModel.findOne({
@@ -115,26 +117,35 @@ export class FnAccountRegisterService {
     });
     const universityPromise = this.universityModel.findOne({
       _id: mongoose.Types.ObjectId(idUniversity),
-      "careers._id": mongoose.Types.ObjectId(idCareer),
-      "careers.cicles": { $in: [cicleName] } ,
+      'careers._id': mongoose.Types.ObjectId(idCareer),
+      'careers.cicles': { $in: [cicleName] },
     });
 
-    const [student, university] = await Promise.all([studentPromise, universityPromise]);
+    const [student, university] = await Promise.all([
+      studentPromise,
+      universityPromise,
+    ]);
 
     if (!student) {
-      throw new exception.ExistStudentRegisterPendingCustomException(`REGISTER_ACCOUNT_EXIST_STUDENT`);
+      throw new exception.ExistStudentRegisterPendingCustomException(
+        `REGISTER_ACCOUNT_EXIST_STUDENT`,
+      );
     }
 
-    if(!university) {
-      throw new exception.NotExistUniversityRegisterCustomException(`REGISTER_ACCOUNT_NOTEXIST_UNIVERSITY`);
+    if (!university) {
+      throw new exception.NotExistUniversityRegisterCustomException(
+        `REGISTER_ACCOUNT_NOTEXIST_UNIVERSITY`,
+      );
     }
 
-    const universityCareerAndCicles = university.careers.find(career => career._id.toString() == idCareer);
+    const universityCareerAndCicles = university.careers.find(
+      (career) => career._id.toString() == idCareer,
+    );
 
     const career = {
       _id: universityCareerAndCicles._id,
-      name: universityCareerAndCicles.name
-    }
+      name: universityCareerAndCicles.name,
+    };
 
     const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
@@ -149,23 +160,21 @@ export class FnAccountRegisterService {
             name: university.name,
           },
           career,
-          cicleName
+          cicleName,
         },
-      }
+      },
     );
 
-    await this.mailService.sendAccountWelcome(
-      <IAccountWelcome> {
-        email: updateStudent.email,
-        password: updateStudent.password,
-        fullName: `${firstName} ${lastName}`,
-        university: university.name,
-        career: career.name,
-        information: information,
-        profileUrl: profileUrl,
-        cicle: cicleName
-      }
-    );
+    await this.mailService.sendAccountWelcome(<IAccountWelcome>{
+      email: updateStudent.email,
+      password: updateStudent.password,
+      fullName: `${firstName} ${lastName}`,
+      university: university.name,
+      career: career.name,
+      information: information,
+      profileUrl: profileUrl,
+      cicle: cicleName,
+    });
 
     return <dto.ResponseGenericDto>{
       message: 'Processo exitoso',

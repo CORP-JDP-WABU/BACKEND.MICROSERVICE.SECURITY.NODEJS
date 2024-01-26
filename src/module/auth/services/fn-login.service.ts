@@ -108,7 +108,7 @@ export class FnLoginService {
 
   private async generateDecryptCredential(requestHash: string, data: string) {
     const findKeysRequest: any = await this.findKeysByRequestHash(requestHash);
-    
+
     const bufferKys = {
       x1: Buffer.from(findKeysRequest.keys.x1, 'base64'),
       x2: Buffer.from(findKeysRequest.keys.x2, 'base64'),

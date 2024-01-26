@@ -21,6 +21,6 @@ export default () => ({
     url: process.env.RABBITMQ_URL,
   },
   jwt: {
-    secret: process.env.JWT_SECRET
-  }
+    secret: process.env.JWT_SECRET,
+  },
 });

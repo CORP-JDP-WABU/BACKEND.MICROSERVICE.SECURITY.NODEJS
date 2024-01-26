@@ -14,7 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MongooseModule.forFeature([
       {
         name: schemas.Universities.name,
-        schema: schemas.UniversitiesSchema
+        schema: schemas.UniversitiesSchema,
       },
       {
         name: schemas.Students.name,
@@ -32,7 +32,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         global: true,
         secret: config.get('jwt.secret'),
         signOptions: { expiresIn: '60s' },
-      })
+      }),
     }),
     CryptoModule,
     MailModule,

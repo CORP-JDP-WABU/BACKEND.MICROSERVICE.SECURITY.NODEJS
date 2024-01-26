@@ -31,7 +31,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         global: true,
         secret: config.get('jwt.secret'),
         signOptions: { expiresIn: '60s' },
-      })
+      }),
     }),
     CryptoModule,
     //EmittingModule
