@@ -8,7 +8,6 @@ import * as schemas from 'src/common/schemas';
 import * as dto from 'src/common/dto';
 import * as authDto from '../dto';
 import * as exception from 'src/exception';
-import { EmittingService } from 'src/event/emitting/emitting.service';
 
 @Injectable()
 export class FnLoginService {
@@ -52,6 +51,8 @@ export class FnLoginService {
       message: 'Processo exitoso',
       operation: `::${FnLoginService.name}::execute`,
       data: <authDto.ResponseLoginDto>{
+        idStudent: findUserByEmailPassword._id,
+        isFirstLogin: findUserByEmailPassword.isFirstLogin,
         token: generateTokenForUser.tokenEncrypt,
       },
     };
