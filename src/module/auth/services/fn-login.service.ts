@@ -38,6 +38,7 @@ export class FnLoginService {
       await this.findUserByEmailPassword(email, password);
     const generateTokenForUser = await this.generateTokenForUser(
       findUserByEmailPassword._id,
+      findUserByEmailPassword.university._id.toString(),
       findUserByEmailPassword.email,
     );
     await this.registerSecurityForUser(
@@ -93,9 +94,9 @@ export class FnLoginService {
     return keys;
   }
 
-  private async generateTokenForUser(idStudent: string, email: string) {
+  private async generateTokenForUser(idStudent: string, idUniversity: string, email: string) {
     try {
-      const token = await this.jwtService.signAsync({ idStudent, email });
+      const token = await this.jwtService.signAsync({ idStudent, idUniversity, email });
       const encrypt = await this.cryptoService.encrypt(token);
       return {
         tokenEncrypt: encrypt,
@@ -137,16 +138,16 @@ export class FnLoginService {
   }
 
   private async registerSecurityForUser(
-    idUser: mongoose.Types.ObjectId,
+    idStudent: mongoose.Types.ObjectId,
     token: string,
   ) {
     try {
-      const findSecurityByIdUser = await this.securityModel.findOne({ idUser });
-      if (!findSecurityByIdUser) {
-        await this.securityModel.create({ idUser, tokens: [token] });
+      const findSecurityByIdStudentr = await this.securityModel.findOne({ idStudent });
+      if (!findSecurityByIdStudentr) {
+        await this.securityModel.create({ idStudent, tokens: [token] });
       } else {
         await this.securityModel.updateOne(
-          { idUser },
+          { idStudent },
           { $addToSet: { tokens: token } },
         );
       }

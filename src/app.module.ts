@@ -7,6 +7,9 @@ import { AppController } from './app.controller';
 import configuration from './config/configuration';
 import { AuthModule } from './module/auth/auth.module';
 import { AccountModule } from './module/account/account.module';
+import { TcpAuthService } from './module/tcp/tcp-auth.service';
+import { TcpAuthController } from './module/tcp/tcp-auth.controller';
+import * as schemas from 'src/common/schemas';
 
 @Module({
   imports: [
@@ -22,6 +25,16 @@ import { AccountModule } from './module/account/account.module';
       }),
       inject: [ConfigService],
     }),
+    MongooseModule.forFeature([
+      {
+        name: schemas.Securities.name,
+        schema: schemas.SecuritiesSchema,
+      },
+      {
+        name: schemas.Students.name,
+        schema: schemas.StudentsSchema,
+      }
+    ]),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -33,12 +46,13 @@ import { AccountModule } from './module/account/account.module';
     AuthModule,
     AccountModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, TcpAuthController],
   providers: [
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
+    TcpAuthService
   ],
 })
 export class AppModule {}

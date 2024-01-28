@@ -13,6 +13,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
 
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      host: config.get('tcp.host'),
+      port: config.get('tcp.port'),
+    },
+  });
+  
   app.useGlobalFilters(new HttpCustomException(logger));
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
