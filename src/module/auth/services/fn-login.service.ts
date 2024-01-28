@@ -53,6 +53,7 @@ export class FnLoginService {
       operation: `::${FnLoginService.name}::execute`,
       data: <authDto.ResponseLoginDto>{
         idStudent: findUserByEmailPassword._id,
+        idUniversity: findUserByEmailPassword.university._id,
         isFirstLogin: findUserByEmailPassword.isFirstLogin,
         token: generateTokenForUser.tokenEncrypt,
       },
