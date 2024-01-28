@@ -25,6 +25,8 @@ jobs:
         echo "Generating .env file"
         echo "SERVICE_HTTP_HOST=0.0.0.0" > .env
         echo "SERVICE_HTTP_PORT=4000" >> .env
+        echo "SERVICE_TCP _PORT=0.0.0.0" >> .env
+        echo "SERVICE_TCP _PORT=40000" >> .env
         echo "SERVICE_BASE_PATH=/api" >> .env
         echo "SERVICE_HTTP_THROTTLE_TTL=60" >> .env
         echo "SERVICE_HTTP_THROTTLE_LIMIT=10" >> .env
