@@ -161,7 +161,7 @@ export class FnAccountRegisterService {
           },
           career,
           cicleName,
-          isFirstLogin: false
+          isFirstLogin: true
         },
       },
     );
