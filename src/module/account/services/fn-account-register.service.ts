@@ -196,7 +196,7 @@ export class FnAccountRegisterService {
         $inc: {
           "kpis.manyStudentConnected": 1
         }
-      });
+      }, { multi: true });
     }
 
     return <dto.ResponseGenericDto>{
