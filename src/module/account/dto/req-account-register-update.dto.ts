@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class RequestAccountRegisterUpdateDto {
   @IsNotEmpty()
@@ -42,4 +42,8 @@ export class RequestAccountRegisterUpdateDto {
   @IsBoolean()
   @ApiProperty()
   readonly isAcceptedTermCoditions: boolean;
+
+  @IsOptional()
+  @ApiPropertyOptional()
+  readonly isRegisterNewAccount: boolean;
 }

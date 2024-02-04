@@ -4,7 +4,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { AccountController } from './account.controller';
 import { CryptoModule } from 'src/common/crypto/crypto.module';
 import * as schemas from 'src/common/schemas';
-import { KEYS } from 'src/common/const/generate.const';
 import { MailModule } from 'src/common/mail/mail.module';
 import * as services from './services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -12,6 +11,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     MongooseModule.forFeature([
+      {
+        name: schemas.Dashboards.name,
+        schema: schemas.DashboardsSchema
+      },
       {
         name: schemas.Universities.name,
         schema: schemas.UniversitiesSchema,

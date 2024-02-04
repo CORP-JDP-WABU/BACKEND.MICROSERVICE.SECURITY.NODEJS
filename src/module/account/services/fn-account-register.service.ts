@@ -15,6 +15,8 @@ export class FnAccountRegisterService {
   private logger = new Logger(FnAccountRegisterService.name);
 
   constructor(
+    @InjectModel(schemas.Dashboards.name)
+    private readonly dashboardModel: mongoose.Model<schemas.DashboardsDocument>,
     @InjectModel(schemas.Universities.name)
     private readonly universityModel: mongoose.Model<schemas.UniversitiesDocument>,
     @InjectModel(schemas.Students.name)
@@ -74,6 +76,11 @@ export class FnAccountRegisterService {
           code: 1,
           description: 'ACCOUNT_REGISTER_PENDING',
         },
+        recordActive: true,
+        userUpdate: null,
+        userCreated: email,
+        dateUpdate: null,
+        dateCreate: new Date(),
       },
       sendCodes: {
         recoveryPassword: '0000',
@@ -109,6 +116,7 @@ export class FnAccountRegisterService {
       idUniversity,
       idCareer,
       cicleName,
+      isRegisterNewAccount
     } = requestAccountRegisterUpdateDto;
 
     const studentPromise = this.studentModel.findOne({
@@ -147,6 +155,8 @@ export class FnAccountRegisterService {
       name: universityCareerAndCicles.name,
     };
 
+    const userUpdate = `${firstName[0]}${lastName.slice(0, 3)}`
+
     const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
       {
@@ -161,7 +171,11 @@ export class FnAccountRegisterService {
           },
           career,
           cicleName,
-          isFirstLogin: true
+          isFirstLogin: true,
+          'auditProperties.userUpdate': userUpdate.toUpperCase(),
+          'auditProperties.dateUpdate': new Date(),
+          'auditProperties.status.code': 2,
+          'auditProperties.status.description': 'ACCOUNT_REGISTER',
         },
       },
     );
@@ -176,6 +190,14 @@ export class FnAccountRegisterService {
       profileUrl: profileUrl,
       cicle: cicleName,
     });
+
+    if(isRegisterNewAccount !== undefined && isRegisterNewAccount) {
+      this.dashboardModel.updateMany({ "university._id": mongoose.Types.ObjectId(idUniversity) }, {
+        $inc: {
+          "kpis.manyStudentConnected": 1
+        }
+      });
+    }
 
     return <dto.ResponseGenericDto>{
       message: 'Processo exitoso',
