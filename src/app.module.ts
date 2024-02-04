@@ -33,7 +33,7 @@ import * as schemas from 'src/common/schemas';
       {
         name: schemas.Students.name,
         schema: schemas.StudentsSchema,
-      }
+      },
     ]),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -52,7 +52,7 @@ import * as schemas from 'src/common/schemas';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
-    TcpAuthService
+    TcpAuthService,
   ],
 })
 export class AppModule {}

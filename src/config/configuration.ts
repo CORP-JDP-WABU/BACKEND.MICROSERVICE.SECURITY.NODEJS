@@ -10,7 +10,7 @@ export default () => ({
   },
   tcp: {
     host: process.env.SERVICE_TCP_HOST,
-    port: process.env.SERVICE_TCP_PORT
+    port: process.env.SERVICE_TCP_PORT,
   },
   swagger: {
     basePath: process.env.SWAGGER_BASE_PATH,

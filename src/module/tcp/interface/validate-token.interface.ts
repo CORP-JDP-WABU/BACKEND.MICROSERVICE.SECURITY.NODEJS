@@ -1,3 +1,3 @@
 export interface IValidateToken {
-    token: string;
+  token: string;
 }

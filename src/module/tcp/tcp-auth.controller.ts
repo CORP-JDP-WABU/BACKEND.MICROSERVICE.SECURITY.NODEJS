@@ -5,12 +5,9 @@ import { AllExceptionsFilter } from 'src/exception';
 
 @Controller()
 export class TcpAuthController {
+  constructor(private readonly tcpAuthService: TcpAuthService) {}
 
-  constructor(
-    private readonly tcpAuthService: TcpAuthService
-) {}
-
-@UseFilters(new AllExceptionsFilter())
+  @UseFilters(new AllExceptionsFilter())
   @MessagePattern({ subjet: 'client-security', function: 'validate-token' })
   async validateToken(dto: any) {
     return await this.tcpAuthService.validateToken(dto);
@@ -20,5 +17,4 @@ export class TcpAuthController {
   async configStudent(dto: any) {
     return await this.tcpAuthService.configStudent(dto);
   }
-
 }

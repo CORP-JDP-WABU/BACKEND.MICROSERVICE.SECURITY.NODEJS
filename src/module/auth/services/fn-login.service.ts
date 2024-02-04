@@ -95,9 +95,17 @@ export class FnLoginService {
     return keys;
   }
 
-  private async generateTokenForUser(idStudent: string, idUniversity: string, email: string) {
+  private async generateTokenForUser(
+    idStudent: string,
+    idUniversity: string,
+    email: string,
+  ) {
     try {
-      const token = await this.jwtService.signAsync({ idStudent, idUniversity, email });
+      const token = await this.jwtService.signAsync({
+        idStudent,
+        idUniversity,
+        email,
+      });
       const encrypt = await this.cryptoService.encrypt(token);
       return {
         tokenEncrypt: encrypt,
@@ -143,7 +151,9 @@ export class FnLoginService {
     token: string,
   ) {
     try {
-      const findSecurityByIdStudentr = await this.securityModel.findOne({ idStudent });
+      const findSecurityByIdStudentr = await this.securityModel.findOne({
+        idStudent,
+      });
       if (!findSecurityByIdStudentr) {
         await this.securityModel.create({ idStudent, tokens: [token] });
       } else {

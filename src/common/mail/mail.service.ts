@@ -15,7 +15,7 @@ import { IAccountWelcome } from './interfaces';
 export class MailService {
   private transporter: nodemailer.Transporter;
 
-  private emailSend: string = "devwabu@gmail.com";
+  private emailSend: string = 'devwabu@gmail.com';
   private fileNameAccountSuccessRecovery: string = 'account-recovery-success';
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';

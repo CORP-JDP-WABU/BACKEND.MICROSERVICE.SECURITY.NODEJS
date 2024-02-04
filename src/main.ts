@@ -20,7 +20,7 @@ async function bootstrap() {
       port: config.get('tcp.port'),
     },
   });
-  
+
   app.useGlobalFilters(new HttpCustomException(logger));
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 

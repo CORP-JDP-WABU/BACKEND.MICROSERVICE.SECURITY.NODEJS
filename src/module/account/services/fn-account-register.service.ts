@@ -116,7 +116,7 @@ export class FnAccountRegisterService {
       idUniversity,
       idCareer,
       cicleName,
-      isRegisterNewAccount
+      isRegisterNewAccount,
     } = requestAccountRegisterUpdateDto;
 
     const studentPromise = this.studentModel.findOne({
@@ -155,7 +155,7 @@ export class FnAccountRegisterService {
       name: universityCareerAndCicles.name,
     };
 
-    const userUpdate = `${firstName[0]}${lastName.slice(0, 3)}`
+    const userUpdate = `${firstName[0]}${lastName.slice(0, 3)}`;
 
     const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
@@ -191,12 +191,16 @@ export class FnAccountRegisterService {
       cicle: cicleName,
     });
 
-    if(isRegisterNewAccount !== undefined && isRegisterNewAccount) {
-      this.dashboardModel.updateMany({ "university._id": mongoose.Types.ObjectId(idUniversity) }, {
-        $inc: {
-          "kpis.manyStudentConnected": 1
-        }
-      }, { multi: true });
+    if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
+      this.dashboardModel.updateMany(
+        { 'university._id': mongoose.Types.ObjectId(idUniversity) },
+        {
+          $inc: {
+            'kpis.manyStudentConnected': 1,
+          },
+        },
+        { multi: true },
+      );
     }
 
     return <dto.ResponseGenericDto>{

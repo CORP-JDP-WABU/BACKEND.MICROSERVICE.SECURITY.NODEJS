@@ -13,7 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MongooseModule.forFeature([
       {
         name: schemas.Dashboards.name,
-        schema: schemas.DashboardsSchema
+        schema: schemas.DashboardsSchema,
       },
       {
         name: schemas.Universities.name,
