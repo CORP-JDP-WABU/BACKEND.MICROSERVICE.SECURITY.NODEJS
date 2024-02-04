@@ -36,6 +36,7 @@ export class FnLoginService {
     );
     const findUserByEmailPassword: schemas.StudentsDocument =
       await this.findUserByEmailPassword(email, password);
+
     const generateTokenForUser = await this.generateTokenForUser(
       findUserByEmailPassword._id,
       findUserByEmailPassword.university._id.toString(),
@@ -80,6 +81,9 @@ export class FnLoginService {
       throw new exception.InvalidCredentialsPasswordCustomException(
         `LOGIN_PASSWORD_FAILED`,
       );
+ 
+    if(!userByEmailPassword.university._id)
+        throw new exception.PendingToRegisterAccountCustomException('LOGIN_REGISTER_PENDING')
 
     return userByEmailPassword;
   }

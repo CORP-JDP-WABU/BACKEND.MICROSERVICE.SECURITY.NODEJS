@@ -119,6 +119,8 @@ export class FnAccountRegisterService {
       isRegisterNewAccount,
     } = requestAccountRegisterUpdateDto;
 
+    this.logger.debug(`::requestAccountRegisterUpdateDto::${JSON.stringify(requestAccountRegisterUpdateDto)}`);
+
     const studentPromise = this.studentModel.findOne({
       _id: mongoose.Types.ObjectId(idStudent),
       'auditProperties.status.code': 1,

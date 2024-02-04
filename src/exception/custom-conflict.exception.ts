@@ -12,6 +12,12 @@ export class InvalidCredentialsPasswordCustomException extends ConflictException
   }
 }
 
+export class PendingToRegisterAccountCustomException extends ConflictException {
+  constructor(customCode: string) {
+    super(`El usuario tiene un registro pendiente, por favor debe completar el flujo. [${customCode}`);
+  }
+}
+
 export class InvalidHashCustomException extends ConflictException {
   constructor(originException: string) {
     super(`hash incorrectos o vencidos [${originException}`);
