@@ -194,6 +194,7 @@ export class FnAccountRegisterService {
     });
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
+      await this.createDashboard(idUniversity, idStudent);
       this.dashboardModel.updateMany(
         { 'university._id': mongoose.Types.ObjectId(idUniversity) },
         {
@@ -284,5 +285,31 @@ export class FnAccountRegisterService {
     }
     this.logger.debug(`::generateRecoveryPasswordCode::again::${idStudent}`);
     return this.generateRegisterVerify(idStudent);
+  }
+
+  private async createDashboard(idUniversity: string, idStudent: string) {
+
+    const firstDashboardUniversity = await this.dashboardModel.findOne({ 'university._id': mongoose.Types.ObjectId(idUniversity) })
+  
+    await this.dashboardModel.create({
+      university: firstDashboardUniversity.university,
+      kpis: firstDashboardUniversity.kpis,
+      students: {
+        _id: mongoose.Types.ObjectId(idStudent),
+        points: 0,
+        favoriteCourses: []
+      },
+      auditProperties: {
+        status: {
+          code: 1,
+          description: 'ACTIVO',
+        },
+        dateCreate: new Date(),
+        dateUpdate: null,
+        userCreate: 'ETL',
+        userUpdate: null,
+        recordActive: true,
+      },
+    })
   }
 }
