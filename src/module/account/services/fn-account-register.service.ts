@@ -15,6 +15,8 @@ export class FnAccountRegisterService {
   private logger = new Logger(FnAccountRegisterService.name);
 
   constructor(
+    @InjectModel(schemas.CareerCourseTeacher.name)
+    private readonly careerCourseTeacherModel: mongoose.Model<schemas.CareerCourseTeacherDocument>,
     @InjectModel(schemas.Dashboards.name)
     private readonly dashboardModel: mongoose.Model<schemas.DashboardsDocument>,
     @InjectModel(schemas.Universities.name)
@@ -195,15 +197,7 @@ export class FnAccountRegisterService {
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
       await this.createDashboard(idUniversity, idStudent);
-      this.dashboardModel.updateMany(
-        { 'university._id': mongoose.Types.ObjectId(idUniversity) },
-        {
-          $inc: {
-            'kpis.manyStudentConnected': 1,
-          },
-        },
-        { multi: true },
-      );
+      await this.createQualification(idUniversity, idCareer, idStudent);
     }
 
     return <dto.ResponseGenericDto>{
@@ -310,6 +304,41 @@ export class FnAccountRegisterService {
         userUpdate: null,
         recordActive: true,
       },
-    })
+    });
+
+    await this.dashboardModel.updateMany(
+      { 'university._id': mongoose.Types.ObjectId(idUniversity) },
+      {
+        $inc: {
+          'kpis.manyStudentConnected': 1,
+        },
+      },
+      { multi: true },
+    );
+
+  }
+
+  private async createQualification(idUniversity: string, idCareer: string, idStudent: string) {
+
+    const transformIdUniversity =  this.transformStringToObjectId(idUniversity);
+    const transformIdCareer = this.transformStringToObjectId(idCareer);
+    const transformIdStudent =  this.transformStringToObjectId(idStudent);
+
+      const otherQualification = await this.careerCourseTeacherModel.findOne({ 
+        idUniversity: transformIdUniversity,
+        idCareer: transformIdCareer
+      });
+
+      await this.careerCourseTeacherModel.create({
+        idUniversity: transformIdUniversity,
+        idCareer: transformIdCareer,
+        idStudent: transformIdStudent,
+        pendingToQualification: otherQualification.pendingToQualification,
+        auditProperties: otherQualification.auditProperties
+      })
+  }
+
+  private transformStringToObjectId(id: string) {
+    return mongoose.Types.ObjectId(id);
   }
 }

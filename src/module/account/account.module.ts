@@ -12,6 +12,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     MongooseModule.forFeature([
       {
+        name: schemas.CareerCourseTeacher.name,
+        schema: schemas.CareerCourseTeacherSchema,
+      },
+      {
         name: schemas.Dashboards.name,
         schema: schemas.DashboardsSchema,
       },
