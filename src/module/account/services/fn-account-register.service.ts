@@ -121,7 +121,11 @@ export class FnAccountRegisterService {
       isRegisterNewAccount,
     } = requestAccountRegisterUpdateDto;
 
-    this.logger.debug(`::requestAccountRegisterUpdateDto::${JSON.stringify(requestAccountRegisterUpdateDto)}`);
+    this.logger.debug(
+      `::requestAccountRegisterUpdateDto::${JSON.stringify(
+        requestAccountRegisterUpdateDto,
+      )}`,
+    );
 
     const studentPromise = this.studentModel.findOne({
       _id: mongoose.Types.ObjectId(idStudent),
@@ -282,16 +286,17 @@ export class FnAccountRegisterService {
   }
 
   private async createDashboard(idUniversity: string, idStudent: string) {
+    const firstDashboardUniversity = await this.dashboardModel.findOne({
+      'university._id': mongoose.Types.ObjectId(idUniversity),
+    });
 
-    const firstDashboardUniversity = await this.dashboardModel.findOne({ 'university._id': mongoose.Types.ObjectId(idUniversity) })
-  
     await this.dashboardModel.create({
       university: firstDashboardUniversity.university,
       kpis: firstDashboardUniversity.kpis,
       students: {
         _id: mongoose.Types.ObjectId(idStudent),
         points: 0,
-        favoriteCourses: []
+        favoriteCourses: [],
       },
       auditProperties: {
         status: {
@@ -315,27 +320,29 @@ export class FnAccountRegisterService {
       },
       { multi: true },
     );
-
   }
 
-  private async createQualification(idUniversity: string, idCareer: string, idStudent: string) {
-
-    const transformIdUniversity =  this.transformStringToObjectId(idUniversity);
+  private async createQualification(
+    idUniversity: string,
+    idCareer: string,
+    idStudent: string,
+  ) {
+    const transformIdUniversity = this.transformStringToObjectId(idUniversity);
     const transformIdCareer = this.transformStringToObjectId(idCareer);
-    const transformIdStudent =  this.transformStringToObjectId(idStudent);
+    const transformIdStudent = this.transformStringToObjectId(idStudent);
 
-      const otherQualification = await this.careerCourseTeacherModel.findOne({ 
-        idUniversity: transformIdUniversity,
-        idCareer: transformIdCareer
-      });
+    const otherQualification = await this.careerCourseTeacherModel.findOne({
+      idUniversity: transformIdUniversity,
+      idCareer: transformIdCareer,
+    });
 
-      await this.careerCourseTeacherModel.create({
-        idUniversity: transformIdUniversity,
-        idCareer: transformIdCareer,
-        idStudent: transformIdStudent,
-        pendingToQualification: otherQualification.pendingToQualification,
-        auditProperties: otherQualification.auditProperties
-      })
+    await this.careerCourseTeacherModel.create({
+      idUniversity: transformIdUniversity,
+      idCareer: transformIdCareer,
+      idStudent: transformIdStudent,
+      pendingToQualification: otherQualification.pendingToQualification,
+      auditProperties: otherQualification.auditProperties,
+    });
   }
 
   private transformStringToObjectId(id: string) {

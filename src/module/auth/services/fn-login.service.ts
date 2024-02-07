@@ -81,9 +81,11 @@ export class FnLoginService {
       throw new exception.InvalidCredentialsPasswordCustomException(
         `LOGIN_PASSWORD_FAILED`,
       );
- 
-    if(!userByEmailPassword.university._id)
-        throw new exception.PendingToRegisterAccountCustomException('LOGIN_REGISTER_PENDING')
+
+    if (!userByEmailPassword.university._id)
+      throw new exception.PendingToRegisterAccountCustomException(
+        'LOGIN_REGISTER_PENDING',
+      );
 
     return userByEmailPassword;
   }
