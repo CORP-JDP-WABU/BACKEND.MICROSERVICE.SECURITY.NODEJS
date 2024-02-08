@@ -3,7 +3,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as schemas from 'src/common/schemas';
 import * as interfaces from './interface';
-import * as mongoose from 'mongoose';
 import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
@@ -35,7 +34,7 @@ export class TcpAuthService {
     try {
       const configStudentData = await this.studentModel.findById(
         configStudent.idStudent,
-        { _id: 1, university: 1 },
+        { _id: 1, university: 1, email: 1, career: 1 },
       );
       return configStudentData;
     } catch (error) {
