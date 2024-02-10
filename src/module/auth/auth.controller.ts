@@ -17,6 +17,7 @@ import * as request from './dto';
 export class AuthController {
   constructor(
     private readonly fnLoginService: services.FnLoginService,
+    private readonly fnLogoutService: services.FnLogOutService,
     private readonly fnKeysService: services.FnKeysService,
   ) {}
 
@@ -71,5 +72,41 @@ export class AuthController {
     @Body() requestLodinDto: request.RequestLoginDto,
   ): Promise<response.ResponseGenericDto> {
     return this.fnLoginService.execute(requestLodinDto);
+  }
+
+  @UseGuards(ThrottlerGuard)
+  @Throttle()
+  @Post('/logout')
+  @ApiCreatedResponse({
+    description: 'The logout has been successfully created authentication.',
+    type: response.ResponseGenericDto,
+  })
+  @ApiConflictResponse({
+    description: 'The logout has been failed by conflict authentication',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal Server Exception.',
+    type: exception.GenerateTokenInternalException,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal Server Exception.',
+    type: exception.RegisterSecurityInternalException,
+  })
+  @ApiConflictResponse({
+    description: 'Conflict Exception',
+    type: exception.InvalidCredentialsEmailCustomException,
+  })
+  @ApiConflictResponse({
+    description: 'Conflict Exception',
+    type: exception.InvalidCredentialsPasswordCustomException,
+  })
+  @ApiConflictResponse({
+    description: 'Conflict Exception',
+    type: exception.InvalidHashCustomException,
+  })
+  logOut(
+    @Body() requestLogoutDto: request.RequestLogoutDto,
+  ): Promise<response.ResponseGenericDto> {
+    return this.fnLogoutService.execute(requestLogoutDto);
   }
 }

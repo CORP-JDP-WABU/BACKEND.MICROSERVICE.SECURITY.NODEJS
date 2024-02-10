@@ -59,3 +59,9 @@ export class NotExistUniversityRegisterCustomException extends ConflictException
     super(`Los datos universitarios no existen [${customCode}`);
   }
 }
+
+export class NotMatchStudentCustomException extends ConflictException {
+  constructor(customCode: string) {
+    super(`Los datos brindados tiene un error de codificacion [${customCode}`);
+  }
+}

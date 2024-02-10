@@ -11,6 +11,7 @@ export class ResponseGenericDto {
 
   @ApiProperty()
   data:
+    | any
     | accountDto.ResponseAccountRecoveryDto
     | accountDto.ResponseAccountRecoveryUpdateDto
     | accountDto.ResponseAccountRecoveryVerifyDto

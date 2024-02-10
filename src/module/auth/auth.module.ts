@@ -37,6 +37,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     //EmittingModule
   ],
   controllers: [AuthController],
-  providers: [services.FnLoginService, services.FnKeysService],
+  providers: [
+    services.FnLoginService,
+    services.FnLogOutService,
+    services.FnKeysService,
+  ],
 })
 export class AuthModule {}
