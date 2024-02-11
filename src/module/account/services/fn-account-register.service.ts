@@ -358,14 +358,16 @@ export class FnAccountRegisterService {
     );
 
     let pendingToQualification = [];
-    
-    this.logger.debug(`::studyPlanForCareer::${studyPlanForCareer.studyPlan.length}::idCareer: [${transformIdCareer}]`);
 
-    if(!studyPlanForCareer) {
+    this.logger.debug(
+      `::studyPlanForCareer::${studyPlanForCareer.studyPlan.length}::idCareer: [${transformIdCareer}]`,
+    );
+
+    if (!studyPlanForCareer) {
       const studyPlanCicle = studyPlanForCareer.studyPlan.find(
         (x) => x.name === cicleName,
       );
-  
+
       if (!studyPlanCicle) {
         const idCourses = studyPlanCicle.courses.map(
           (element) => element.idCourse,
@@ -373,7 +375,7 @@ export class FnAccountRegisterService {
         const universityCourses = await this.universityCourseModel.find({
           _id: { $in: idCourses },
         });
-  
+
         for (const course of universityCourses) {
           const teacher = await this.universityTeacherModel.findById(
             course.teachers[0]._id,
@@ -401,10 +403,6 @@ export class FnAccountRegisterService {
       });
       pendingToQualification = otherQualification.pendingToQualification;
     }
-
-
-
-
 
     await this.careerCourseTeacherModel.create({
       idUniversity: transformIdUniversity,
