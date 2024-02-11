@@ -148,7 +148,7 @@ export class FnAccountRegisterService {
       universityPromise,
     ]);
 
-    if (!student) {
+    /*if (!student) {
       throw new exception.ExistStudentRegisterPendingCustomException(
         `REGISTER_ACCOUNT_EXIST_STUDENT`,
       );
@@ -158,7 +158,7 @@ export class FnAccountRegisterService {
       throw new exception.NotExistUniversityRegisterCustomException(
         `REGISTER_ACCOUNT_NOTEXIST_UNIVERSITY`,
       );
-    }
+    }*/
 
     const universityCareerAndCicles = university.careers.find(
       (career) => career._id.toString() == idCareer,
@@ -171,7 +171,7 @@ export class FnAccountRegisterService {
 
     const userUpdate = `${firstName[0]}${lastName.slice(0, 3)}`;
 
-    const updateStudent = await this.studentModel.findOneAndUpdate(
+    /*const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
       {
         $set: {
@@ -203,10 +203,10 @@ export class FnAccountRegisterService {
       information: information,
       profileUrl: profileUrl,
       cicle: cicleName,
-    });
+    });*/
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
-      this.createDashboard(idUniversity, idStudent, university.name);
+      //this.createDashboard(idUniversity, idStudent, university.name);
       this.createQualification(idUniversity, idCareer, idStudent, cicleName);
     }
 
@@ -305,7 +305,7 @@ export class FnAccountRegisterService {
       'university._id': transformIdUniversity,
     });
 
-    await this.dashboardModel.create({
+    const create = await this.dashboardModel.create({
       university: !firstDashboardUniversity
         ? { _id: transformIdUniversity, name: university }
         : firstDashboardUniversity.university,
@@ -344,7 +344,7 @@ export class FnAccountRegisterService {
       { multi: true },
     );
     
-    this.logger.debug(`::end::create::dashboard::`);
+    this.logger.debug(`::end::create::dashboard::#${create.id}`);
   }
 
   private async createQualification(
@@ -364,27 +364,24 @@ export class FnAccountRegisterService {
 
     let pendingToQualification = [];
 
-    if (!studyPlanForCareer) {
+    if (studyPlanForCareer) {
       const studyPlanCicle = studyPlanForCareer.studyPlan.find(
         (x) => x.name.toLowerCase() === cicleName.toLowerCase(),
       );
-      this.logger.debug(
-        `::studyPlanCicle::${JSON.stringify(studyPlanCicle)}::cicleName: [${cicleName}]`,
-      );
-      if (!studyPlanCicle) {
+
+      if (studyPlanCicle) {
         const idCourses = studyPlanCicle.courses.map(
           (element) => element.idCourse,
         );
         const universityCourses = await this.universityCourseModel.find({
           _id: { $in: idCourses },
         });
-        this.logger.debug(
-          `::studyPlanCicle::universityCourses::${universityCourses.length}`,
-        );
+
         for (const course of universityCourses) {
           const teacher = await this.universityTeacherModel.findById(
             course.teachers[0]._id,
           );
+
           pendingToQualification.push({
             course: {
               idCourse: course.id,
@@ -409,7 +406,7 @@ export class FnAccountRegisterService {
       pendingToQualification = otherQualification.pendingToQualification;
     }
 
-    await this.careerCourseTeacherModel.create({
+    const create = await this.careerCourseTeacherModel.create({
       idUniversity: transformIdUniversity,
       idCareer: transformIdCareer,
       idStudent: transformIdStudent,
@@ -426,7 +423,7 @@ export class FnAccountRegisterService {
         },
       },
     });
-    this.logger.debug(`::end::create::qualification::`);
+    this.logger.debug(`::end::create::qualification::${create.id}`);
   }
 
   private transformStringToObjectId(id: string) {
