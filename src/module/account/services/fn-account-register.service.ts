@@ -353,14 +353,14 @@ export class FnAccountRegisterService {
     const transformIdCareer = this.transformStringToObjectId(idCareer);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
 
-    const studyPlanForCareer = await this.careerStudyPlanModel.findById(
-      transformIdCareer,
+    const studyPlanForCareer = await this.careerStudyPlanModel.findOne(
+      {idCareer: transformIdCareer}
     );
 
     let pendingToQualification = [];
 
     this.logger.debug(
-      `::studyPlanForCareer::${studyPlanForCareer.studyPlan.length}::idCareer: [${transformIdCareer}]`,
+      `::studyPlanForCareer::${JSON.stringify(studyPlanForCareer)}::idCareer: [${transformIdCareer}]`,
     );
 
     if (!studyPlanForCareer) {
