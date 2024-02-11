@@ -296,6 +296,8 @@ export class FnAccountRegisterService {
     idStudent: string,
     university: string,
   ) {
+
+    this.logger.debug(`::start::create::dashboard::`);
     const transformIdUniversity = this.transformStringToObjectId(idUniversity);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
 
@@ -341,6 +343,8 @@ export class FnAccountRegisterService {
       },
       { multi: true },
     );
+    
+    this.logger.debug(`::end::create::dashboard::`);
   }
 
   private async createQualification(
@@ -349,6 +353,7 @@ export class FnAccountRegisterService {
     idStudent: string,
     cicleName: string,
   ) {
+    this.logger.debug(`::start::create::qualification::`);
     const transformIdUniversity = this.transformStringToObjectId(idUniversity);
     const transformIdCareer = this.transformStringToObjectId(idCareer);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
@@ -361,7 +366,7 @@ export class FnAccountRegisterService {
 
     if (!studyPlanForCareer) {
       const studyPlanCicle = studyPlanForCareer.studyPlan.find(
-        (x) => x.name === cicleName,
+        (x) => x.name.toLowerCase() === cicleName.toLowerCase(),
       );
       this.logger.debug(
         `::studyPlanCicle::${JSON.stringify(studyPlanCicle)}::cicleName: [${cicleName}]`,
@@ -373,7 +378,9 @@ export class FnAccountRegisterService {
         const universityCourses = await this.universityCourseModel.find({
           _id: { $in: idCourses },
         });
-
+        this.logger.debug(
+          `::studyPlanCicle::universityCourses::${universityCourses.length}`,
+        );
         for (const course of universityCourses) {
           const teacher = await this.universityTeacherModel.findById(
             course.teachers[0]._id,
@@ -419,6 +426,7 @@ export class FnAccountRegisterService {
         },
       },
     });
+    this.logger.debug(`::end::create::qualification::`);
   }
 
   private transformStringToObjectId(id: string) {
