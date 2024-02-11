@@ -5,7 +5,6 @@ export type CareerStudyPlanDocument = CareerStudyPlan & mongoose.Document;
 
 @Schema({ collection: 'CareerStudyPlan', autoIndex: true })
 export class CareerStudyPlan {
-
   @Prop({ type: mongoose.Types.ObjectId })
   idCareer: mongoose.Types.ObjectId;
 
@@ -13,8 +12,8 @@ export class CareerStudyPlan {
     raw({
       type: [
         {
-            idStudyPlan: mongoose.Types.ObjectId,
-            name: String,
+          idStudyPlan: mongoose.Types.ObjectId,
+          name: String,
           courses: [
             {
               idCourse: mongoose.Types.ObjectId,
@@ -37,4 +36,5 @@ export class CareerStudyPlan {
   }[];
 }
 
-export const CareerStudyPlanSchema = SchemaFactory.createForClass(CareerStudyPlan);
+export const CareerStudyPlanSchema =
+  SchemaFactory.createForClass(CareerStudyPlan);

@@ -353,35 +353,44 @@ export class FnAccountRegisterService {
     const transformIdCareer = this.transformStringToObjectId(idCareer);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
 
-    const studyPlanForCareer = await this.careerStudyPlanModel.findById(transformIdCareer);
+    const studyPlanForCareer = await this.careerStudyPlanModel.findById(
+      transformIdCareer,
+    );
 
     let pendingToQualification = [];
-  
-    const studyPlanCicle = studyPlanForCareer.studyPlan.find(x => x.name === cicleName);
 
-    if(!studyPlanCicle) {
-      const idCourses = studyPlanCicle.courses.map((element) => (element.idCourse))
-      const universityCourses = await this.universityCourseModel.find({ _id: { $in: idCourses } });
+    const studyPlanCicle = studyPlanForCareer.studyPlan.find(
+      (x) => x.name === cicleName,
+    );
+
+    if (!studyPlanCicle) {
+      const idCourses = studyPlanCicle.courses.map(
+        (element) => element.idCourse,
+      );
+      const universityCourses = await this.universityCourseModel.find({
+        _id: { $in: idCourses },
+      });
 
       for (const course of universityCourses) {
-          const teacher = await this.universityTeacherModel.findById(course.teachers[0]._id);
-          pendingToQualification.push({
-            course: {
-              idCourse: course.id,
-              name: course.name,
-            },
-            teacher: {
-              idTeacher: teacher.id,
-              firstName: teacher.firstName,
-              lastName: teacher.lastName,
-              photoUrl: teacher.url
-            },
-            hasComment: false,
-            hasQualification: false
-          })
+        const teacher = await this.universityTeacherModel.findById(
+          course.teachers[0]._id,
+        );
+        pendingToQualification.push({
+          course: {
+            idCourse: course.id,
+            name: course.name,
+          },
+          teacher: {
+            idTeacher: teacher.id,
+            firstName: teacher.firstName,
+            lastName: teacher.lastName,
+            photoUrl: teacher.url,
+          },
+          hasComment: false,
+          hasQualification: false,
+        });
       }
     }
-
 
     /*const otherQualification = await this.careerCourseTeacherModel.findOne({
       idUniversity: transformIdUniversity,
@@ -401,8 +410,8 @@ export class FnAccountRegisterService {
         recordActive: true,
         status: {
           code: 1,
-          description: '::create::'
-        }
+          description: '::create::',
+        },
       },
     });
   }
