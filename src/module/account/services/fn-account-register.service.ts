@@ -359,15 +359,13 @@ export class FnAccountRegisterService {
 
     let pendingToQualification = [];
 
-    this.logger.debug(
-      `::studyPlanForCareer::${JSON.stringify(studyPlanForCareer)}::idCareer: [${transformIdCareer}]`,
-    );
-
     if (!studyPlanForCareer) {
       const studyPlanCicle = studyPlanForCareer.studyPlan.find(
         (x) => x.name === cicleName,
       );
-
+      this.logger.debug(
+        `::studyPlanCicle::${JSON.stringify(studyPlanCicle)}::cicleName: [${cicleName}]`,
+      );
       if (!studyPlanCicle) {
         const idCourses = studyPlanCicle.courses.map(
           (element) => element.idCourse,
