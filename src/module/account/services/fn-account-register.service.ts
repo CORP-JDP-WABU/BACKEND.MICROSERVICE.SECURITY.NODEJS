@@ -15,12 +15,18 @@ export class FnAccountRegisterService {
   private logger = new Logger(FnAccountRegisterService.name);
 
   constructor(
+    @InjectModel(schemas.CareerStudyPlan.name)
+    private readonly careerStudyPlanModel: mongoose.Model<schemas.CareerStudyPlanDocument>,
     @InjectModel(schemas.CareerCourseTeacher.name)
     private readonly careerCourseTeacherModel: mongoose.Model<schemas.CareerCourseTeacherDocument>,
     @InjectModel(schemas.Dashboards.name)
     private readonly dashboardModel: mongoose.Model<schemas.DashboardsDocument>,
     @InjectModel(schemas.Universities.name)
     private readonly universityModel: mongoose.Model<schemas.UniversitiesDocument>,
+    @InjectModel(schemas.UniversityCourse.name)
+    private readonly universityCourseModel: mongoose.Model<schemas.UniversityCourseDocument>,
+    @InjectModel(schemas.UniversityTeacher.name)
+    private readonly universityTeacherModel: mongoose.Model<schemas.UniversityTeacherDocument>,
     @InjectModel(schemas.Students.name)
     private readonly studentModel: mongoose.Model<schemas.StudentsDocument>,
     @InjectModel(schemas.Keys.name)
@@ -200,8 +206,8 @@ export class FnAccountRegisterService {
     });
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
-      await this.createDashboard(idUniversity, idStudent);
-      await this.createQualification(idUniversity, idCareer, idStudent);
+      this.createDashboard(idUniversity, idStudent, university.name);
+      this.createQualification(idUniversity, idCareer, idStudent, cicleName);
     }
 
     return <dto.ResponseGenericDto>{
@@ -285,16 +291,31 @@ export class FnAccountRegisterService {
     return this.generateRegisterVerify(idStudent);
   }
 
-  private async createDashboard(idUniversity: string, idStudent: string) {
+  private async createDashboard(
+    idUniversity: string,
+    idStudent: string,
+    university: string,
+  ) {
+    const transformIdUniversity = this.transformStringToObjectId(idUniversity);
+    const transformIdStudent = this.transformStringToObjectId(idStudent);
+
     const firstDashboardUniversity = await this.dashboardModel.findOne({
-      'university._id': mongoose.Types.ObjectId(idUniversity),
+      'university._id': transformIdUniversity,
     });
 
     await this.dashboardModel.create({
-      university: firstDashboardUniversity.university,
-      kpis: firstDashboardUniversity.kpis,
+      university: !firstDashboardUniversity
+        ? { _id: transformIdUniversity, name: university }
+        : firstDashboardUniversity.university,
+      kpis: !firstDashboardUniversity
+        ? {
+            manyStudentConnected: 0,
+            manyQualificationTeacher: 0,
+            manySharedDocument: 0,
+          }
+        : firstDashboardUniversity.kpis,
       students: {
-        _id: mongoose.Types.ObjectId(idStudent),
+        _id: transformIdStudent,
         points: 0,
         favoriteCourses: [],
       },
@@ -326,22 +347,63 @@ export class FnAccountRegisterService {
     idUniversity: string,
     idCareer: string,
     idStudent: string,
+    cicleName: string,
   ) {
     const transformIdUniversity = this.transformStringToObjectId(idUniversity);
     const transformIdCareer = this.transformStringToObjectId(idCareer);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
 
-    const otherQualification = await this.careerCourseTeacherModel.findOne({
+    const studyPlanForCareer = await this.careerStudyPlanModel.findById(transformIdCareer);
+
+    let pendingToQualification = [];
+  
+    const studyPlanCicle = studyPlanForCareer.studyPlan.find(x => x.name === cicleName);
+
+    if(!studyPlanCicle) {
+      const idCourses = studyPlanCicle.courses.map((element) => (element.idCourse))
+      const universityCourses = await this.universityCourseModel.find({ _id: { $in: idCourses } });
+
+      for (const course of universityCourses) {
+          const teacher = await this.universityTeacherModel.findById(course.teachers[0]._id);
+          pendingToQualification.push({
+            course: {
+              idCourse: course.id,
+              name: course.name,
+            },
+            teacher: {
+              idTeacher: teacher.id,
+              firstName: teacher.firstName,
+              lastName: teacher.lastName,
+              photoUrl: teacher.url
+            },
+            hasComment: false,
+            hasQualification: false
+          })
+      }
+    }
+
+
+    /*const otherQualification = await this.careerCourseTeacherModel.findOne({
       idUniversity: transformIdUniversity,
       idCareer: transformIdCareer,
-    });
+    });*/
 
     await this.careerCourseTeacherModel.create({
       idUniversity: transformIdUniversity,
       idCareer: transformIdCareer,
       idStudent: transformIdStudent,
-      pendingToQualification: otherQualification.pendingToQualification,
-      auditProperties: otherQualification.auditProperties,
+      pendingToQualification: pendingToQualification,
+      auditProperties: {
+        dateCreate: new Date(),
+        dateUpdate: null,
+        userCreate: '',
+        userUpdate: null,
+        recordActive: true,
+        status: {
+          code: 1,
+          description: '::create::'
+        }
+      },
     });
   }
 
