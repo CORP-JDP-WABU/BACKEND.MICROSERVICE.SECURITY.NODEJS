@@ -366,8 +366,15 @@ export class FnAccountRegisterService {
 
     if (studyPlanForCareer) {
 
+      const cicleNumber = parseInt(cicleName.split(' ')[1] || '0', 10);
+
+      let indexStudyPlay = 0;
       for (const studyPlan of studyPlanForCareer.studyPlan) {
   
+        if(indexStudyPlay == cicleNumber) {
+          break;
+        }
+
         if (studyPlan) {
           const idCourses = studyPlan.courses.map(
             (element) => element.idCourse,
