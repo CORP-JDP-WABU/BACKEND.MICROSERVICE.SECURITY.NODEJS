@@ -368,7 +368,7 @@ export class FnAccountRegisterService {
 
       const cicleNumber = parseInt(cicleName.split(' ')[1] || '0', 10);
 
-      let indexStudyPlay = 1;
+      let indexStudyPlay = 0;
       for (const studyPlan of studyPlanForCareer.studyPlan) {
   
         if(indexStudyPlay == cicleNumber) {
