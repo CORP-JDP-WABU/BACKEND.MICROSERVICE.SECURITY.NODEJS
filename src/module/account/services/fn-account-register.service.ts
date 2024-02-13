@@ -378,24 +378,27 @@ export class FnAccountRegisterService {
         });
 
         for (const course of universityCourses) {
-          const teacher = await this.universityTeacherModel.findById(
-            course.teachers[0]._id,
-          );
 
-          pendingToQualification.push({
-            course: {
-              idCourse: course.id,
-              name: course.name,
-            },
-            teacher: {
-              idTeacher: teacher.id,
-              firstName: teacher.firstName,
-              lastName: teacher.lastName,
-              photoUrl: teacher.url,
-            },
-            hasComment: false,
-            hasQualification: false,
-          });
+          if(course.teachers.length > 0) {
+            const teacher = await this.universityTeacherModel.findById(
+              course.teachers[0]._id,
+            );
+  
+            pendingToQualification.push({
+              course: {
+                idCourse: course.id,
+                name: course.name,
+              },
+              teacher: {
+                idTeacher: teacher.id,
+                firstName: teacher.firstName,
+                lastName: teacher.lastName,
+                photoUrl: teacher.url,
+              },
+              hasComment: false,
+              hasQualification: false,
+            });
+          }
         }
       }
     } else {
