@@ -148,7 +148,7 @@ export class FnAccountRegisterService {
       universityPromise,
     ]);
 
-    /*if (!student) {
+    if (!student) {
       throw new exception.ExistStudentRegisterPendingCustomException(
         `REGISTER_ACCOUNT_EXIST_STUDENT`,
       );
@@ -158,7 +158,7 @@ export class FnAccountRegisterService {
       throw new exception.NotExistUniversityRegisterCustomException(
         `REGISTER_ACCOUNT_NOTEXIST_UNIVERSITY`,
       );
-    }*/
+    }
 
     const universityCareerAndCicles = university.careers.find(
       (career) => career._id.toString() == idCareer,
@@ -171,7 +171,7 @@ export class FnAccountRegisterService {
 
     const userUpdate = `${firstName[0]}${lastName.slice(0, 3)}`;
 
-    /*const updateStudent = await this.studentModel.findOneAndUpdate(
+    const updateStudent = await this.studentModel.findOneAndUpdate(
       { _id: idStudent },
       {
         $set: {
@@ -203,10 +203,10 @@ export class FnAccountRegisterService {
       information: information,
       profileUrl: profileUrl,
       cicle: cicleName,
-    });*/
+    });
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
-      //this.createDashboard(idUniversity, idStudent, university.name);
+      this.createDashboard(idUniversity, idStudent, university.name);
       this.createQualification(idUniversity, idCareer, idStudent, cicleName);
     }
 
