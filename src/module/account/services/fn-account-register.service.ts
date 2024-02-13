@@ -374,7 +374,7 @@ export class FnAccountRegisterService {
         if(indexStudyPlay == cicleNumber) {
           break;
         }
-
+        indexStudyPlay = indexStudyPlay + 1;
         if (studyPlan) {
           const idCourses = studyPlan.courses.map(
             (element) => element.idCourse,
