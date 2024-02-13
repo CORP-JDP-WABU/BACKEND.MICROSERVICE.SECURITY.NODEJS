@@ -365,48 +365,44 @@ export class FnAccountRegisterService {
     let pendingToQualification = [];
 
     if (studyPlanForCareer) {
-      const studyPlanCicle = studyPlanForCareer.studyPlan.find(
-        (x) => x.name.toLowerCase() === cicleName.toLowerCase(),
-      );
 
-      if (studyPlanCicle) {
-        const idCourses = studyPlanCicle.courses.map(
-          (element) => element.idCourse,
-        );
-        const universityCourses = await this.universityCourseModel.find({
-          _id: { $in: idCourses },
-        });
-
-        for (const course of universityCourses) {
-
-          if(course.teachers.length > 0) {
-            const teacher = await this.universityTeacherModel.findById(
-              course.teachers[0]._id,
-            );
+      for (const studyPlan of studyPlanForCareer.studyPlan) {
   
-            pendingToQualification.push({
-              course: {
-                idCourse: course.id,
-                name: course.name,
-              },
-              teacher: {
-                idTeacher: teacher.id,
-                firstName: teacher.firstName,
-                lastName: teacher.lastName,
-                photoUrl: teacher.url,
-              },
-              hasComment: false,
-              hasQualification: false,
-            });
+        if (studyPlan) {
+          const idCourses = studyPlan.courses.map(
+            (element) => element.idCourse,
+          );
+          const universityCourses = await this.universityCourseModel.find({
+            _id: { $in: idCourses },
+          });
+  
+          for (const course of universityCourses) {
+  
+            if(course.teachers.length > 0) {
+              const teacher = await this.universityTeacherModel.findById(
+                course.teachers[0]._id,
+              );
+    
+              pendingToQualification.push({
+                course: {
+                  idCourse: course.id,
+                  name: course.name,
+                },
+                teacher: {
+                  idTeacher: teacher.id,
+                  firstName: teacher.firstName,
+                  lastName: teacher.lastName,
+                  photoUrl: teacher.url,
+                },
+                hasComment: false,
+                hasQualification: false,
+              });
+            }
           }
         }
+
       }
-    } else {
-      const otherQualification = await this.careerCourseTeacherModel.findOne({
-        idUniversity: transformIdUniversity,
-        idCareer: transformIdCareer,
-      });
-      pendingToQualification = otherQualification.pendingToQualification;
+
     }
 
     const create = await this.careerCourseTeacherModel.create({
