@@ -401,6 +401,7 @@ export class FnAccountRegisterService {
                   lastName: teacher.lastName,
                   photoUrl: teacher.url,
                 },
+                manyQualification: false,
                 hasComment: false,
                 hasQualification: false,
               });
@@ -416,6 +417,7 @@ export class FnAccountRegisterService {
       idUniversity: transformIdUniversity,
       idCareer: transformIdCareer,
       idStudent: transformIdStudent,
+      manyQualification: pendingToQualification.length,
       pendingToQualification: pendingToQualification,
       auditProperties: {
         dateCreate: new Date(),

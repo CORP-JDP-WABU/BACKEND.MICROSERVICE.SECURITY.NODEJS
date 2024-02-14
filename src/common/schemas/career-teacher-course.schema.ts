@@ -16,6 +16,9 @@ export class CareerCourseTeacher {
   @Prop({ type: mongoose.Types.ObjectId })
   idStudent: mongoose.Types.ObjectId;
 
+  @Prop({ type: Number })
+  manyQualification: number;
+
   @Prop(
     raw({
       type: [
@@ -30,6 +33,7 @@ export class CareerCourseTeacher {
             lastName: String,
             photoUrl: String,
           },
+          hasIgnor: Boolean,
           hasComment: Boolean,
           hasQualification: Boolean,
         },
@@ -47,6 +51,7 @@ export class CareerCourseTeacher {
       lastName: string;
       photoUrl: string;
     };
+    hasIgnor: boolean;
     hasComment: boolean;
     hasQualification: boolean;
   }[];
