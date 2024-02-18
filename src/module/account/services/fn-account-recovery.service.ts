@@ -132,14 +132,22 @@ export class FnAccountRecoveryService {
       bufferKys.x1,
     );
 
+    this.logger.debug(`::decryptStudentEmail::${JSON.stringify(decryptStudentEmail)}`);
+
+    const password = haveDecryptPassword
+    ? await this.cryptoService.decrypt(
+        decryptStudenToJson.password,
+        bufferKys.x1,
+      )
+    : null; 
+
+    
+    this.logger.debug(`::password::${JSON.stringify(password)}`);
+
+
     return {
       email: decryptStudentEmail,
-      password: haveDecryptPassword
-        ? await this.cryptoService.decrypt(
-            decryptStudenToJson.password,
-            bufferKys.x1,
-          )
-        : null,
+      password
     };
   }
 
