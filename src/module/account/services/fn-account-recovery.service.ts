@@ -137,7 +137,7 @@ export class FnAccountRecoveryService {
     const password = haveDecryptPassword
     ? await this.cryptoService.decrypt(
         decryptStudenToJson.password,
-        bufferKys.x1,
+        bufferKys.x2,
       )
     : null; 
 
