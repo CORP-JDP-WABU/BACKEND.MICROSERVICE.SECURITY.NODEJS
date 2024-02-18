@@ -120,7 +120,12 @@ export class FnAccountRecoveryService {
     };
 
     const decryptStudentInString = await this.cryptoService.decrypt(data);
+
+    this.logger.debug(`::decryptStudentInString::${decryptStudentInString}`);
+
     const decryptStudenToJson = JSON.parse(decryptStudentInString);
+
+    this.logger.debug(`::decryptStudenToJson::${decryptStudenToJson}`);
 
     const decryptStudentEmail = await this.cryptoService.decrypt(
       decryptStudenToJson.email,
