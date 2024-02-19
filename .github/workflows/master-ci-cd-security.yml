@@ -1,4 +1,4 @@
-name: develop-ci-cd-security
+name: master-ci-cd-security
 
 on:
   push:
