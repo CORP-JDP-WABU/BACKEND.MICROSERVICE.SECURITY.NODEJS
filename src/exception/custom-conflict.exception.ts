@@ -12,6 +12,14 @@ export class InvalidCredentialsPasswordCustomException extends ConflictException
   }
 }
 
+export class InvalidEmailCustomException extends ConflictException {
+  constructor(customCode: string) {
+    super(
+      `La dirección de correo electrónico del destinatario no es válida [${customCode}`,
+    );
+  }
+}
+
 export class PendingToRegisterAccountCustomException extends ConflictException {
   constructor(customCode: string) {
     super(

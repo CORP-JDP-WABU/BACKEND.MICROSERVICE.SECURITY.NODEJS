@@ -296,7 +296,6 @@ export class FnAccountRegisterService {
     idStudent: string,
     university: string,
   ) {
-
     this.logger.debug(`::start::create::dashboard::`);
     const transformIdUniversity = this.transformStringToObjectId(idUniversity);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
@@ -343,7 +342,7 @@ export class FnAccountRegisterService {
       },
       { multi: true },
     );
-    
+
     this.logger.debug(`::end::create::dashboard::#${create.id}`);
   }
 
@@ -358,20 +357,20 @@ export class FnAccountRegisterService {
     const transformIdCareer = this.transformStringToObjectId(idCareer);
     const transformIdStudent = this.transformStringToObjectId(idStudent);
 
-    const studyPlanForCareer = await this.careerStudyPlanModel.findOne(
-      {idCareer: transformIdCareer}
-    );
+    const studyPlanForCareer = await this.careerStudyPlanModel.findOne({
+      idCareer: transformIdCareer,
+    });
 
     let pendingToQualification = [];
 
     if (studyPlanForCareer) {
-
       const cicleNumber = parseInt(cicleName.split(' ')[1] || '0', 10);
-
+      this.logger.debug(
+        `::studyPlanForCareer::studyplan::length::${studyPlanForCareer.studyPlan.length}-${cicleNumber}`,
+      );
       let indexStudyPlay = 0;
       for (const studyPlan of studyPlanForCareer.studyPlan) {
-  
-        if(indexStudyPlay == cicleNumber) {
+        if (indexStudyPlay == cicleNumber) {
           break;
         }
         indexStudyPlay = indexStudyPlay + 1;
@@ -382,14 +381,13 @@ export class FnAccountRegisterService {
           const universityCourses = await this.universityCourseModel.find({
             _id: { $in: idCourses },
           });
-  
+
           for (const course of universityCourses) {
-  
-            if(course.teachers.length > 0) {
+            if (course.teachers.length > 0) {
               const teacher = await this.universityTeacherModel.findById(
                 course.teachers[0]._id,
               );
-    
+
               pendingToQualification.push({
                 course: {
                   idCourse: course.id,
@@ -408,9 +406,7 @@ export class FnAccountRegisterService {
             }
           }
         }
-
       }
-
     }
 
     const create = await this.careerCourseTeacherModel.create({
@@ -422,12 +418,12 @@ export class FnAccountRegisterService {
       auditProperties: {
         dateCreate: new Date(),
         dateUpdate: null,
-        userCreate: '',
+        userCreate: 'MS',
         userUpdate: null,
         recordActive: true,
         status: {
           code: 1,
-          description: '::create::',
+          description: 'REGISTER',
         },
       },
     });

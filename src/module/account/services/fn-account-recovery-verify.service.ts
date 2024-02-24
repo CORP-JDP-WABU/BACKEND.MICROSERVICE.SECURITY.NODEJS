@@ -29,7 +29,7 @@ export class FnAccountRecoveryVerifyService {
       requestAccountRecoveryVerify.data,
     );
     this.logger.debug(`::execute::params::${email} - ${code}`);
-    
+
     const student = await this.studentModel.findOne({
       email,
       'sendCodes.recoveryPassword': code,

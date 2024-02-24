@@ -1,8 +1,4 @@
-// email.service.ts
-
-import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, Logger } from '@nestjs/common';
 
 import * as nodemailer from 'nodemailer';
 import * as aws from 'aws-sdk';
@@ -10,6 +6,8 @@ import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import { join } from 'path';
 import { IAccountWelcome } from './interfaces';
+import * as excepcions from 'src/exception';
+import validator from 'validator';
 
 @Injectable()
 export class MailService {
@@ -24,72 +22,106 @@ export class MailService {
   private subjectAccountRegister: string = 'WABU: ACCOUNT REGISTER';
   private subjectAccountWelcome: string = 'WABU: WELCOME';
 
+  private logger = new Logger(MailService.name);
+
   constructor() {
     this.setupTransporter();
   }
 
   async sendAccountRecovery(emailTo: string, code: String, fullName: string) {
-    const template = this.findTemplateHbs(this.fileNameAccountRecovery);
-    const compiledTemplate = handlebars.compile(template);
-    const html = compiledTemplate({
-      code,
-      name: fullName,
-    });
-    const options = {
-      from: this.emailSend,
-      to: this.emailSend,
-      subject: this.subjectAccountRecovery,
-      html,
-    };
-    return this.transporter.sendMail(options);
+    try {
+      this.isEmailValid(emailTo);
+      const template = this.findTemplateHbs(this.fileNameAccountRecovery);
+      const compiledTemplate = handlebars.compile(template);
+      const html = compiledTemplate({
+        code,
+        name: fullName,
+      });
+      const options = {
+        from: this.emailSend,
+        to: this.emailSend,
+        subject: this.subjectAccountRecovery,
+        html,
+      };
+      return this.transporter.sendMail(options);
+    } catch (error) {
+      this.logger.error(error);
+      throw new excepcions.SendMessageInternalException();
+    }
   }
 
   async sendAccountRegister(emailTo: string, code: String) {
-    const template = this.findTemplateHbs(this.fileNameAccountRegister);
-    const compiledTemplate = handlebars.compile(template);
-    const html = compiledTemplate({
-      code,
-    });
-    const options = {
-      from: this.emailSend,
-      to: this.emailSend,
-      subject: this.subjectAccountRegister,
-      html,
-    };
-    return this.transporter.sendMail(options);
+    try {
+      this.isEmailValid(emailTo);
+      const template = this.findTemplateHbs(this.fileNameAccountRegister);
+      const compiledTemplate = handlebars.compile(template);
+      const html = compiledTemplate({
+        code,
+      });
+      const options = {
+        from: this.emailSend,
+        to: this.emailSend,
+        subject: this.subjectAccountRegister,
+        html,
+      };
+      return this.transporter.sendMail(options);
+    } catch (error) {
+      this.logger.error(error);
+      throw new excepcions.SendMessageInternalException();
+    }
   }
 
   async sendAccountWelcome(iAccountWelcome: IAccountWelcome) {
-    const template = this.findTemplateHbs(this.fileNameAccountWelcome);
-    const compiledTemplate = handlebars.compile(template);
-    const html = compiledTemplate(iAccountWelcome);
-    const options = {
-      from: this.emailSend,
-      to: this.emailSend,
-      subject: this.subjectAccountWelcome,
-      html,
-    };
-    return this.transporter.sendMail(options);
+    try {
+      const template = this.findTemplateHbs(this.fileNameAccountWelcome);
+      const compiledTemplate = handlebars.compile(template);
+      const html = compiledTemplate(iAccountWelcome);
+      const options = {
+        from: this.emailSend,
+        to: this.emailSend,
+        subject: this.subjectAccountWelcome,
+        html,
+      };
+      return this.transporter.sendMail(options);
+    } catch (error) {
+      this.logger.error(error);
+      throw new excepcions.SendMessageInternalException();
+    }
   }
 
   async sendRecoverySuccess(firstName: string) {
-    const template = this.findTemplateHbs(this.fileNameAccountSuccessRecovery);
-    const compiledTemplate = handlebars.compile(template);
-    const html = compiledTemplate({
-      firstName,
-    });
-    const options = {
-      from: this.emailSend,
-      to: this.emailSend,
-      subject: this.subjectAccountWelcome,
-      html,
-    };
-    return this.transporter.sendMail(options);
+    try {
+      const template = this.findTemplateHbs(
+        this.fileNameAccountSuccessRecovery,
+      );
+      const compiledTemplate = handlebars.compile(template);
+      const html = compiledTemplate({
+        firstName,
+      });
+      const options = {
+        from: this.emailSend,
+        to: this.emailSend,
+        subject: this.subjectAccountWelcome,
+        html,
+      };
+      return this.transporter.sendMail(options);
+    } catch (error) {
+      this.logger.error(error);
+      throw new excepcions.SendMessageInternalException();
+    }
+  }
+
+  private isEmailValid(emailTo) {
+    if (!validator.isEmail(emailTo)) {
+      throw new excepcions.InvalidEmailCustomException(
+        'SEND_MAILING_EMAIL_FAILED',
+      );
+    }
   }
 
   private setupTransporter() {
     aws.config.update({
-      accessKeyId: process.env.ACCESSKEY,
+      accessKeyId:  process.env.ACCESSKEY,
       secretAccessKey: process.env.SECRETKEY,
       region: 'us-east-1',
     });

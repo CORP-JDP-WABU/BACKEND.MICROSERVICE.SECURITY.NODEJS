@@ -29,3 +29,9 @@ export class DeleteTokenInSecurityException extends InternalServerErrorException
     super(`${DeleteTokenInSecurityException.name}`);
   }
 }
+
+export class SendMessageInternalException extends InternalServerErrorException {
+  constructor() {
+    super(`${SendMessageInternalException.name}`);
+  }
+}
