@@ -15,7 +15,7 @@ import { IAccountWelcome } from './interfaces';
 export class MailService {
   private transporter: nodemailer.Transporter;
 
-  private emailSend: string = 'devwabu@gmail.com';
+  private emailSend: string = 'admin@wabupro.com';
   private fileNameAccountSuccessRecovery: string = 'account-recovery-success';
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';
@@ -37,7 +37,7 @@ export class MailService {
     });
     const options = {
       from: this.emailSend,
-      to: this.emailSend,
+      to: emailTo,
       subject: this.subjectAccountRecovery,
       html,
     };
@@ -52,7 +52,7 @@ export class MailService {
     });
     const options = {
       from: this.emailSend,
-      to: this.emailSend,
+      to: emailTo,
       subject: this.subjectAccountRegister,
       html,
     };
@@ -65,14 +65,14 @@ export class MailService {
     const html = compiledTemplate(iAccountWelcome);
     const options = {
       from: this.emailSend,
-      to: this.emailSend,
+      to: iAccountWelcome.email,
       subject: this.subjectAccountWelcome,
       html,
     };
     return this.transporter.sendMail(options);
   }
 
-  async sendRecoverySuccess(firstName: string) {
+  async sendRecoverySuccess(firstName: string, email: string) {
     const template = this.findTemplateHbs(this.fileNameAccountSuccessRecovery);
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate({
@@ -80,7 +80,7 @@ export class MailService {
     });
     const options = {
       from: this.emailSend,
-      to: this.emailSend,
+      to: email,
       subject: this.subjectAccountWelcome,
       html,
     };
