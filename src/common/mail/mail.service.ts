@@ -13,7 +13,7 @@ import validator from 'validator';
 export class MailService {
   private transporter: nodemailer.Transporter;
 
-  private emailSend: string = 'devwabu@gmail.com';
+  private emailSend: string = 'admin@wabupro.com';
   private fileNameAccountSuccessRecovery: string = 'account-recovery-success';
   private fileNameAccountRecovery: string = 'account-recovery';
   private fileNameAccountRegister: string = 'account-register';
@@ -30,7 +30,6 @@ export class MailService {
 
   async sendAccountRecovery(emailTo: string, code: String, fullName: string) {
     try {
-      this.isEmailValid(emailTo);
       const template = this.findTemplateHbs(this.fileNameAccountRecovery);
       const compiledTemplate = handlebars.compile(template);
       const html = compiledTemplate({
@@ -39,20 +38,19 @@ export class MailService {
       });
       const options = {
         from: this.emailSend,
-        to: this.emailSend,
+        to: emailTo,
         subject: this.subjectAccountRecovery,
         html,
       };
-      return this.transporter.sendMail(options);
+      return this.transporter.sendMail(options); 
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error('sendAccountRecovery', error);
       throw new excepcions.SendMessageInternalException();
     }
   }
 
   async sendAccountRegister(emailTo: string, code: String) {
     try {
-      this.isEmailValid(emailTo);
       const template = this.findTemplateHbs(this.fileNameAccountRegister);
       const compiledTemplate = handlebars.compile(template);
       const html = compiledTemplate({
@@ -60,13 +58,13 @@ export class MailService {
       });
       const options = {
         from: this.emailSend,
-        to: this.emailSend,
+        to: emailTo,
         subject: this.subjectAccountRegister,
         html,
       };
-      return this.transporter.sendMail(options);
+      return this.transporter.sendMail(options); 
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error('sendAccountRegister', error);
       throw new excepcions.SendMessageInternalException();
     }
   }
@@ -78,44 +76,34 @@ export class MailService {
       const html = compiledTemplate(iAccountWelcome);
       const options = {
         from: this.emailSend,
-        to: this.emailSend,
+        to: iAccountWelcome.email,
         subject: this.subjectAccountWelcome,
         html,
       };
       return this.transporter.sendMail(options);
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error('sendAccountWelcome', error);
       throw new excepcions.SendMessageInternalException();
     }
   }
 
-  async sendRecoverySuccess(firstName: string) {
+  async sendRecoverySuccess(firstName: string, email: string) {
     try {
-      const template = this.findTemplateHbs(
-        this.fileNameAccountSuccessRecovery,
-      );
+      const template = this.findTemplateHbs(this.fileNameAccountSuccessRecovery);
       const compiledTemplate = handlebars.compile(template);
       const html = compiledTemplate({
         firstName,
       });
       const options = {
         from: this.emailSend,
-        to: this.emailSend,
+        to: email,
         subject: this.subjectAccountWelcome,
         html,
       };
-      return this.transporter.sendMail(options);
+      return this.transporter.sendMail(options); 
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error('sendRecoverySuccess', error);
       throw new excepcions.SendMessageInternalException();
-    }
-  }
-
-  private isEmailValid(emailTo) {
-    if (!validator.isEmail(emailTo)) {
-      throw new excepcions.InvalidEmailCustomException(
-        'SEND_MAILING_EMAIL_FAILED',
-      );
     }
   }
 

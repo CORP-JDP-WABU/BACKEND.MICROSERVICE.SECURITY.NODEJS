@@ -205,9 +205,10 @@ export class FnAccountRegisterService {
       cicle: cicleName,
     });
 
+    this.createQualification(idUniversity, idCareer, idStudent, cicleName);
+
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
       this.createDashboard(idUniversity, idStudent, university.name);
-      this.createQualification(idUniversity, idCareer, idStudent, cicleName);
     }
 
     return <dto.ResponseGenericDto>{

@@ -86,7 +86,7 @@ export class FnAccountRecoveryService {
       },
     );
 
-    this.mailService.sendRecoverySuccess(student.firstName);
+    this.mailService.sendRecoverySuccess(student.firstName, student.email);
     return <dto.ResponseGenericDto>{
       message: 'Processo exitoso',
       operation: `::${FnAccountRecoveryService.name}::execute`,
