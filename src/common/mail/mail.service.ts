@@ -7,7 +7,6 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { IAccountWelcome } from './interfaces';
 import * as excepcions from 'src/exception';
-import validator from 'validator';
 
 @Injectable()
 export class MailService {
