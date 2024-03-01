@@ -80,5 +80,5 @@ jobs:
           docker rm microservice-security
           docker rmi ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs
           docker pull ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
-          docker run -d -p 4000:4000 -p 40000:40000 --name microservice-security ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
+          docker run -d -p 4000:4000 -p 40000:40000 --name microservice-security --net=microservices_network --ip=172.18.0.4 ${{ secrets.DOCKER_USERNAME }}/corp-jdp-wabu-backend-microservice-security-nodejs:latest
           '
