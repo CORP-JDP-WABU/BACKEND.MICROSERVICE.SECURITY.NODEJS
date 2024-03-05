@@ -45,7 +45,7 @@ export class FnAccountRegisterService {
     this.logger.debug(`::generateDecryptCredential::${email}-${password}`);
     const studentRegister = await this.studentModel.findOne({
       email,
-      //'auditProperties.status.code': 2,
+      'auditProperties.status.code': 2,
     });
 
     if (studentRegister) {
