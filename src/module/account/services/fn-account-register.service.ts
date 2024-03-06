@@ -103,6 +103,9 @@ export class FnAccountRegisterService {
       email,
       generateRegisterVerify,
     );
+    
+    this.logger.debug(`::messageId::${sendEmail.messageId}`);
+
     return <dto.ResponseGenericDto>{
       message: 'Processo exitoso',
       operation: `::${FnAccountRegisterService.name}::execute`,
