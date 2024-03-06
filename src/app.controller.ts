@@ -1,12 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
+import { InjectConnection } from '@nestjs/mongoose';
+import { ApiTags } from '@nestjs/swagger';
+import { Connection } from 'mongoose';
 
 @Controller()
+@ApiTags('SECURITY')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(@InjectConnection() private connection: Connection) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('healthcheck')
+  getStatusHealthCheck(): Record<string, string> {
+    const response = {
+      mongodb: this.connection.readyState === 1 ? 'ready' : 'connecting',
+    };
+
+    if (Object.values(response).find((status) => status === 'connecting')) {
+      throw new InternalServerErrorException(response);
+    }
+
+    return response;
   }
 }

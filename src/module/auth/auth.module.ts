@@ -1,0 +1,46 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthController } from './auth.controller';
+import { CryptoModule } from 'src/common/crypto/crypto.module';
+import { EmittingModule } from 'src/event/emitting/emitting.module';
+import * as services from './services';
+import * as schemas from 'src/common/schemas';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: schemas.Students.name,
+        schema: schemas.StudentsSchema,
+      },
+      {
+        name: schemas.Securities.name,
+        schema: schemas.SecuritiesSchema,
+      },
+      {
+        name: schemas.Keys.name,
+        schema: schemas.KeysSchema,
+      },
+    ]),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        global: true,
+        secret: config.get('jwt.secret'),
+        signOptions: { expiresIn: '60s' },
+      }),
+    }),
+    CryptoModule,
+    //EmittingModule
+  ],
+  controllers: [AuthController],
+  providers: [
+    services.FnLoginService,
+    services.FnLogOutService,
+    services.FnKeysService,
+  ],
+})
+export class AuthModule {}

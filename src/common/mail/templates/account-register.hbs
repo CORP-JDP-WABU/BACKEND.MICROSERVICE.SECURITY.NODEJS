@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Tabla con Imagen de Fondo</title>
+      <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+      <style>
+         body {
+         margin: 0; /* Eliminar márgenes predeterminados del cuerpo */
+         font-family: 'SF Pro Display', 'SF Pro Display', sans-serif; /* Usar la fuente SF Pro Display */
+         }
+         table {
+         width: 100%;
+         height: 100vh;
+         background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png'); /* Ruta de la imagen */
+         background-size: cover; /* Ajustar la imagen al tamaño de la tabla */
+         border-collapse: collapse;
+         }
+         td {
+         padding: 10px; /* Espaciado interno de las celdas */
+         text-align: center; /* Alineación del texto al centro */
+         }
+         .wabu-logo {
+         width: 100px;
+         height: 100px;
+         flex-shrink: 0;
+         }
+         .wabu-hello {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 35px;
+         font-style: normal;
+         font-weight: 700;
+         line-height: normal;
+         }
+         .wabu-hello-desc {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 20px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-code-desc {
+         color: #103E64;
+         text-align: center;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 20px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-footer {
+         color: #00315B;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 700;
+         line-height: normal;
+         }
+         .wabu-footer-sino {
+         color: #00315B;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .wabu-footer-avisanos {
+         color: #00BAFB !important;
+         font-family: 'SF Pro Display', sans-serif;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 400;
+         line-height: normal;
+         }
+         .white {
+         background-color: #FFFFFF;
+         }
+         .span-code {
+         font-size: 40px;                                               		font-weight: bold; 
+         color: #FFF;													background-color: #1283FF;
+         display: inline-block;
+         margin: auto;                                                           line-height: 67px;
+         width: 300px;
+         height: 70px;
+         border-radius: 20px;
+         }
+         .horizontal-line {
+         border-bottom: 1px solid #A4A4A4;
+         margin: 20px 0;
+         }
+      </style>
+   </head>
+   <body>
+      <table style="
+         width: 100%;
+         height: 100vh;
+         background-image: url('https://wabu-development.s3.amazonaws.com/default/email/wabu-fondo-pantalla-v1.png');
+         background-size: cover;
+         border-collapse: collapse;
+         ">
+         <tr>
+            <td colspan="5"><img class="wabu-logo" src="https://wabu-development.s3.amazonaws.com/default/email/wabulogocolor.png"></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white" style="border-top-left-radius: 25px; border-top-right-radius: 25px;">
+               <p class="wabu-hello">
+                  Hola
+                  <br> 
+               <p class="wabu-hello-desc"> 
+                  Recibimos una solicitud para ingresar a Wabu. 						<br>Ingresa el siguiente código:
+               <p>
+               </p>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white">
+               <span class="span-code" > 
+               {{code}}
+               </span>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white">
+               <p class="wabu-code-desc">
+                  Úsalo para acceder a tu cuenta.
+                  <br> Gracias,
+                  <br> El equipo de Wabu.
+               </p>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td ></td>
+            <td colspan="3" class="white">
+               <div class="horizontal-line"></div>
+            </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td colspan="3" class="white" style="text-align: left;" >
+               <p class="wabu-footer" style="margin-left: 20px">
+                  ¿No solicitaste este cambio?
+               </p>
+               <p class="wabu-footer-sino" style="margin-left: 20px"> 
+                  Si no solicitaste una nueva contraseña, <a class="wabu-footer-avisanos" href="www.google.com">avísanos</a>.
+               </p>
+            </td>
+            <td></td>
+         </tr>
+      </table>
+   </body>
+</html>
