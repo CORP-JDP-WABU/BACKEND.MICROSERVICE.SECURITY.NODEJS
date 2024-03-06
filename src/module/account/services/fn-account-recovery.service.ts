@@ -38,6 +38,12 @@ export class FnAccountRecoveryService {
       );
     }
 
+    if (student.university.name == "UNIVERSITY_NOT_FOUND") {
+      throw new exception.NotExistUniversityRegisterCustomException(
+        `UNIVERSITY_NOT_FOUND`,
+      );
+    }
+
     this.logger.debug(`::execute::student::[${student.id} - ${student.email}]`);
     const fullName = `${student.firstName} ${student.lastName}`;
     const generateRecoveryPassword = await this.generateRecoveryPasswordCode(

@@ -67,6 +67,7 @@ export class FnLoginService {
       //password,
       //'auditProperties.status.code': 2,
     });
+    
     if (!userByEmail)
       throw new exception.InvalidCredentialsEmailCustomException(
         `LOGIN_EMAIL_FAILED`,
@@ -81,10 +82,15 @@ export class FnLoginService {
       throw new exception.InvalidCredentialsPasswordCustomException(
         `LOGIN_PASSWORD_FAILED`,
       );
-
+        
     if (!userByEmailPassword.university._id)
       throw new exception.PendingToRegisterAccountCustomException(
         'LOGIN_REGISTER_PENDING',
+      );
+
+    if (userByEmailPassword.university.name == "UNIVERSITY_NOT_FOUND")
+      throw new exception.NotExistUniversityRegisterCustomException(
+        'UNIVERSITY_NOT_FOUND',
       );
 
     return userByEmailPassword;
