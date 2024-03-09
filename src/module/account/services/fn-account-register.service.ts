@@ -208,7 +208,9 @@ export class FnAccountRegisterService {
       cicle: cicleName,
     });
 
-    this.createQualification(idUniversity, idCareer, idStudent, cicleName);
+    
+    // De forma temporal, se dejara el ciclo maximo en duro, para no permitir calificar varias veces, asi seran controlados por el proceso de smash
+    this.createQualification(idUniversity, idCareer, idStudent, "CICLO 10");
 
     if (isRegisterNewAccount !== undefined && isRegisterNewAccount) {
       this.createDashboard(idUniversity, idStudent, university.name);
