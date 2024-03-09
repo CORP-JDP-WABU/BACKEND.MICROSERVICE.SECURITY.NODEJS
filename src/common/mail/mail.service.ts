@@ -37,7 +37,7 @@ export class MailService {
       });
       const options = {
         from: this.emailSend,
-        to: emailTo,
+        to: "devwabu@gmail.com",//emailTo,
         subject: this.subjectAccountRecovery,
         html,
       };
@@ -57,7 +57,7 @@ export class MailService {
       });
       const options = {
         from: this.emailSend,
-        to: emailTo,
+        to: "devwabu@gmail.com", //emailTo,
         subject: this.subjectAccountRegister,
         html,
       };
@@ -75,7 +75,7 @@ export class MailService {
       const html = compiledTemplate(iAccountWelcome);
       const options = {
         from: this.emailSend,
-        to: iAccountWelcome.email,
+        to: "devwabu@gmail.com", //iAccountWelcome.email,
         subject: this.subjectAccountWelcome,
         html,
       };
@@ -95,7 +95,7 @@ export class MailService {
       });
       const options = {
         from: this.emailSend,
-        to: email,
+        to:"devwabu@gmail.com", // email,
         subject: this.subjectAccountWelcome,
         html,
       };
