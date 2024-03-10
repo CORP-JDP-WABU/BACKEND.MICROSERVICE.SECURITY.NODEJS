@@ -406,6 +406,7 @@ export class FnAccountRegisterService {
                   photoUrl: teacher.url,
                 },
                 manyQualification: false,
+                hasIgnor: false,
                 hasComment: false,
                 hasQualification: false,
               });
