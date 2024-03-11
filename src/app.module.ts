@@ -48,10 +48,6 @@ import * as schemas from 'src/common/schemas';
   ],
   controllers: [AppController, TcpAuthController],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
     TcpAuthService,
   ],
 })

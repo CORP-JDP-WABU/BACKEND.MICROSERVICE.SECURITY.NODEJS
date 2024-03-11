@@ -23,7 +23,6 @@ export class AccountController {
   ) {}
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/register')
   @ApiCreatedResponse({
     description: 'The register has been successfully created account.',
@@ -47,7 +46,6 @@ export class AccountController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Patch('/register')
   @ApiCreatedResponse({
     description: 'The update register has been successfully created account.',
@@ -69,7 +67,6 @@ export class AccountController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/register/verify')
   @ApiCreatedResponse({
     description: 'The register verify has been successfully created account.',
@@ -96,7 +93,6 @@ export class AccountController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/recovery')
   @ApiCreatedResponse({
     description: 'The recovery has been successfully recover account.',
@@ -116,7 +112,6 @@ export class AccountController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Patch('/recovery')
   @ApiCreatedResponse({
     description: 'The recovery has been successfully update account.',
@@ -135,7 +130,6 @@ export class AccountController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/recovery/verify')
   @ApiCreatedResponse({
     description: 'The recovery verify has been successfully recover account.',

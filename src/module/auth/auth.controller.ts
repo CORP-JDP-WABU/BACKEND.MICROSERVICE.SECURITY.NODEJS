@@ -22,7 +22,6 @@ export class AuthController {
   ) {}
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Get('/keys')
   @ApiCreatedResponse({
     description: 'The keys has been successfully created authentication.',
@@ -39,7 +38,6 @@ export class AuthController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/login')
   @ApiCreatedResponse({
     description: 'The login has been successfully created authentication.',
@@ -75,7 +73,6 @@ export class AuthController {
   }
 
   @UseGuards(ThrottlerGuard)
-  @Throttle()
   @Post('/logout')
   @ApiCreatedResponse({
     description: 'The logout has been successfully created authentication.',
